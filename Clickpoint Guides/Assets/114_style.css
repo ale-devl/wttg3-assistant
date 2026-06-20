@@ -1,0 +1,323 @@
+@font-face {
+    font-family: Noto-Regular;
+    src: url(../Assets/114_NotoSerifKhojki-Regular.ttf);
+}
+
+@font-face {
+    font-family: Noto-Bold;
+    src: url(../Assets/114_NotoSerifKhojki-Bold.ttf);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+    box-sizing: border-box;
+
+    font-family: Noto-Regular;
+}
+
+ol,
+ul {
+    list-style: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+td {
+    vertical-align: middle;
+}
+
+body {
+    color: black;
+    background: white;
+    padding: 10px;
+    font-size: 18px;
+    line-height: 1;
+}
+
+img {
+    max-width: 100%;
+}
+
+a,
+a:focus,
+a:visited,
+a:hover {
+    color: #551a8b;
+    text-decoration: underline;
+}
+
+a.CPTAG,
+a.CTAG,
+a.CFTAG,
+a.CPTAG:focus,
+a.CFTAG:focus,
+a.CTAG:focus,
+a.CPTAG:visited,
+a.CFTAG:visited,
+a.CPTAG:hover,
+a.CTAG:hover,
+a.CFTAG:hover {
+    color: inherit !important;
+    text-decoration: inherit !important;
+}
+
+p {
+    margin: 0 auto;
+    padding-bottom: 15px;
+}
+
+section {
+    color: white;
+    background: #3366FF;
+    padding: 40px;
+    max-width: 620px;
+    margin: 0 auto;
+}
+
+#container {
+    margin: 0 auto;
+    max-width: 820px;
+    width: 50%;
+}
+
+#container #header a {
+    margin-top: 2%;
+    margin-right: 6%;
+}
+
+#header>a>img {
+    width: 30%;
+}
+
+.strong {
+    font-weight: 600;
+}
+
+.posleft {
+    position: absolute;
+    left: 0;
+}
+
+.posright {
+    position: absolute;
+    right: 0;
+}
+
+.posbottom {
+    position: absolute;
+    bottom: 10px;
+}
+
+.nopadding {
+    padding: 0;
+}
+
+.pt {
+    padding-top: 20px;
+}
+
+.pb {
+    padding-bottom: 50px;
+}
+
+.pl {
+    padding-left: 40px;
+}
+
+.pr {
+    padding-right: 40px;
+}
+
+.mt {
+    margin-top: 40px;
+}
+
+.mb {
+    margin-bottom: 40px;
+}
+
+.text-whiteish {
+    color: #cecece;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-justify {
+    text-align: justify;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-xlarge {
+    font-size: 48px;
+}
+
+.text-large {
+    font-size: 32px;
+}
+
+.text-medium {
+    font-size: 24px;
+}
+
+.text-normal {
+    font-size: 18px;
+}
+
+.text-small {
+    font-size: 12px;
+}
+
+.text-underline {
+    text-decoration: underline;
+}
+
+.clearfix {
+    clear: both;
+}
+
+.pull-left {
+    float: left;
+}
+
+.pull-right {
+    float: right;
+}
+
+input {
+    background-color: #FFFFFF;
+    color: #0D0D0D;
+    padding: 5px;
+}
+
+#wait-text {
+    margin-top: 30px;
+    font-size: 13pt;
+
+    max-width: 60%;
+}
+
+#waiting-box {
+    line-height: 30px;
+    max-width: 80%;
+    padding: 10px;
+    padding-top: 40px;
+    position: relative;
+}
+
+#wait-thanks {
+    display: block;
+    margin: auto;
+    max-width: 70%;
+    font-family: Noto-Bold;
+    font-size: 24pt;
+    line-height: 50px;
+}
+
+#wait-bar {
+    margin-top: 20px;
+}
+
+#waiting-box>small {
+    display: block;
+    opacity: 30%;
+    font-size: 11pt;
+    margin: auto;
+}
+
+#waiting-box>small>a {
+    text-decoration: none;
+    color: white;
+}
+
+.wait-header {
+    padding-left: 10%;
+    padding-right: 10%;
+    position: relative;
+}
+
+.wait-header>a>img {
+    width: 30%;
+}
+
+#wait-disclaimer {
+    margin-top: 20px;
+    display: flex;
+    color: white;
+    background: #3366FF;
+    padding-top: 30px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 20px;
+    line-height: 30px;
+    font-size: 0.9em;
+    justify-content: center;
+    align-items: center;
+    vertical-align: middle;
+    gap: 10%;
+}
+
+#wait-disclaimer>p>a {
+    text-decoration: none;
+    color: white;
+}
+
+.bold {
+    font-family: Noto-Bold;
+}
+
+.poscenter {
+    display: block;
+    margin: auto;
+    text-align: center;
+    font-size: 0.8em;
+}
+
+.PTAG.side {
+    position: absolute;
+    display: block;
+    transform: rotate(-90deg);
+    font-size: 0.8em;
+    left: -2%;
+    top: 43%;
+    opacity: 30%;
+}
+
+.wait-header>.CTAG {
+    display: block;
+    position: absolute;
+    background-color: red;
+    width: 5%;
+    height: 40%;
+    top: 0;
+    left: 20%;
+}
+
+.main-image {
+    position: relative;
+}
+
+.main-image>.CTAG {
+    position: absolute;
+    left: 20%;
+    top: 20%;
+    /* background-color: red; */
+    width: 12%;
+    height: 12%;
+}
