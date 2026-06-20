@@ -790,7 +790,7 @@ function setup() {//Prepares website lists and appearance
 		x.onreadystatechange = function() {
 			if (x.readyState == 4 && x.status == 200) {
 				var d = JSON.parse(x.responseText);
-				document.getElementById("version").innerHTML = `<i>WTTG3 Assistant Version 0.1.0.${d[0].sha.slice(0,7)}</i>`;
+				document.getElementById("version").innerHTML = `<i>WTTG3 Assistant Version 1.0.0.${d[0].sha.slice(0,7)}</i>`;
 			}
 		};
 		x.open("GET","https://api.github.com/repos/otrexdev/wttg3-assistant/commits?per_page=1",true);
