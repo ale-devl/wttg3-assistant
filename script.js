@@ -132,7 +132,10 @@ function wiki_input() {//Updates wiki data from import field
 	r.value = "";
 	if (c.length == 1) {return;}
 	var d = {};
-	var s = [...new Set(c.match(/(?=^)[\w ]+[!?]?(?= -)/gm))];
+	var s = [...new Set(
+		(c.match(/(?=^)[\w' \u2019]+[!?]?(?= -)/gm) || [])
+			.map(function(n){return n.replace(/['\u2019]/g,"");})
+	)];
 	if (s.length != 0) {
 		s.forEach(function(n){
 			var i = wikidata[n];
@@ -142,7 +145,6 @@ function wiki_input() {//Updates wiki data from import field
 				d[n] = full_array((i.sub?.length ?? 0) + 1,[0,0,0,0]);
 			}
 		});
-		//console.log("Final",d)
 		data.wiki.sites[data.wiki.current] = d;
 		data.wiki.keys[data.wiki.current] = 0;
 		wiki_update();
@@ -383,6 +385,7 @@ function load_handle(a,i) {
 		case 1:
 			localStorage.setItem(type, data.load.state);
 			data.load.state = 0;
+			data.load.index++;
 		case 2:
 			document.getElementById("load_message").style.display = "block";
 			popups.forEach((v,i)=>{
