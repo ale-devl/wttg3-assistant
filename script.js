@@ -55,7 +55,7 @@ var wikidata = {
 	"Symphoros Chosen":     {id:178,sub:["live","sendlinks"]},
 	"Synapse Decay":        {id:181,sub:["getmoney","myfriends","occasionally","succulentmeal"]},
 	"Tango Down":           {id:186,sub:["hire","payment","results"]},
-	"Thanks For Visting!":    {id:190,sub:["bar","connected","creepy","fakemain","jolly","plug","portal","sleeptalk","slide2","smile","ulike","vision"]},
+	"Thanks For Visiting!":    {id:190,sub:["bar","connected","creepy","fakemain","jolly","plug","portal","sleeptalk","slide2","smile","ulike","vision"]},
 	"The Bomb Maker":        {id:203},
 	"The Grey":             {id:204,sub:["centrum","deddd","inanis","interius","latus"], times:":30 - :59"},
 	"The Hall":             {id:210, times:":45 - :59"},
