@@ -57,7 +57,7 @@ var wikidata = {
 	"Tango Down":           {id:186,sub:["hire","payment","results"]},
 	"Thanks For Visiting!":    {id:190,sub:["bar","connected","creepy","fakemain","jolly","plug","portal","sleeptalk","slide2","smile","ulike","vision"]},
 	"The Bomb Maker":        {id:203},
-	"The Grey":             {id:204,sub:["centrum","deddd","inanis","interius","latus"], times:":30 - :59"},
+	"The Grey":             {id:204,sub:["centrum","inanis","interius","latus"], times:":30 - :59"},
 	"The Hall":             {id:210, times:":45 - :59"},
 	"The Hole":             {id:211},
 	"The Light Within":      {id:212,sub:["saved"]},
