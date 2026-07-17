@@ -1,21 +1,26 @@
 .CPTAG {
   outline:10px solid rgba(255,255,0,0.75);
+   background-color: rgba(255, 255, 0, 0.25);
 }
 
 .CFTAG {
   outline:10px solid rgba(0,255,30,0.75);
+   background-color: rgba(0, 255, 30, 0.25);
 }
 
 .PTAG {
 	outline:10px solid rgba(255,0,0,0.75);
+	background-color: rgba(255, 0, 0, 0.25);
 }
 
 .CFTAG.CPTAG {
 	outline:10px solid rgba(0,255,255,0.75);
+	background-color: rgba(0, 255, 255, 0.25);
 }
 
 .CPTAG_area {
   background:rgba(255,255,0,0.25);
+  background-color: rgba(255, 255, 0, 0.25);
 }
 
 .CFTAG_area {

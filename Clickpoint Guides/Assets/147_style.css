@@ -1,312 +1,205 @@
-
 * {
     margin: 0;
-    padding: 0;
-    border: 0;
-    font-size: 100%;
-    font: inherit;
-    vertical-align: baseline;
-    box-sizing: border-box;
+    font-family: Sarabun-Regular;
 }
- 
-ol,
-ul {
-    list-style: none;
-}
- 
-table {
-    border-collapse: collapse;
-    border-spacing: 0;
-}
- 
-a.CPTAG, a.CFTAG,
-a.CPTAG:focus, a.CFTAG:focus,
-a.CPTAG:visited, a.CFTAG:visited,
-a.CPTAG:hover, a.CFTAG:hover {
-    color: inherit !important;
-    font-size: inherit !important;
-    font-weight: inherit !important;
-    text-decoration: inherit !important;
-}
- 
-body {
-    line-height: 1;
-}
- 
-img {
-    max-width: 100%;
-}
- 
-p {
-    margin: 0 auto;
-    padding-bottom: 15px;
-}
- 
-.container {
-    margin: 0 auto;
-    width: 85%;
-    min-width: 800px;
-    max-width: 1550px;
-    font-size: 18px;
-}
- 
 
-.strong {
-    font-weight: 600;
+/* logo letters */
+#logo>span,
+#logo>a {
+    font-size: 6em;
+    letter-spacing: -5px;
 }
- 
-.nopadding {
-    padding: 0;
+
+#logo1 {
+    font-family: GloriaHallelujah-Regular;
 }
- 
-.relative {
-    display: inline-block;
-    position: relative;
+
+#logo2 {
+    font-family: Courgette-Regular;
 }
- 
-.pt {
-    padding-top: 20px;
+
+#logo3 {
+    font-family: RockSalt-Regular;
 }
- 
-.pb {
-    padding-bottom: 50px;
+
+#logo4 {
+    font-family: Anton-Regular;
 }
- 
-.pl {
-    padding-left: 10px;
+
+#logo5 {
+    font-family: GlassAntiqua-Regular;
 }
- 
-.pr {
-    padding-right: 10px;
+
+#logo6 {
+    font-family: LuckiestGuy-Regular;
 }
- 
-.mt {
-    margin-top: 20px;
+
+#logo7 {
+    font-family: Pangolin-Regular;
 }
- 
-.mb {
-    margin-bottom: 50px;
+
+#logo8 {
+    font-family: PermamentMarker-Regular;
 }
- 
-.text-center {
+
+#logo9 {
+    font-family: Lumanosimo-Regular;
+}
+
+#logo {
+    display: block;
+    margin: auto;
+    width: 650px;
+    text-align: center;
+    color: white;
+    line-height: 120px;
+}
+
+/* --- */
+
+body {
+    background-color: #015C3D;
+}
+
+nav {
+    zoom: 1.2;
+    display: block;
+    margin: auto;
+    color: white;
+    font-family: Sarabun-Bold;
+    background-image: url(../Images/147_Navbar.png);
+    background-repeat: no-repeat;
+    height: 100px;
+    width: 675px;
+    vertical-align: middle;
     text-align: center;
 }
- 
-.text-justify {
-    text-align: justify;
+
+nav>table {
+    text-align: center;
+    vertical-align: middle;
+    width: 100%;
+    font-size: 1.2em;
 }
- 
-.text-left {
-    text-align: left;
+
+td {
+    vertical-align: middle;
+    height: 80px;
 }
- 
-.text-right {
-    text-align: right;
+
+table>tr>td>a {
+    display: block;
+    width: 100%;
+    height: 100%;
 }
- 
-.text-large {
-    font-size: 48px;
+
+main {
+    display: block;
+    width: 800px;
+    margin: auto;
+    margin-top: 30px;
+    color: white;
+    text-align: center;
 }
- 
-.text-medium {
-    font-size: 32px;
+
+.italic {
+    font-family: Sarabun-Italic;
 }
- 
-.text-normal {
-    font-size: 18px;
+
+.bold {
+    font-family: Sarabun-Bold;
 }
- 
-.text-small {
-    font-size: 12px;
-}
- 
-.text-underline {
+
+.underlined {
     text-decoration: underline;
 }
- 
-.clearfix {
-    clear: both;
-    display: inline-block;
+
+.extrabold {
+    font-family: Sarabun-ExtraBold;
 }
- 
-.img-responsive {
+
+.bolditalic {
+    font-family: Sarabun-BoldItalic;
+}
+
+h2 {
+    margin-top: 40px;
+    font-size: 2em;
+}
+
+p {
+    font-size: 1.1em;
+}
+
+.left {
+    text-align: left;
+}
+
+.medicine {
     width: 100%;
-    max-width: 100%;
-}
- 
-.pull-left {
-    float: left;
-}
- 
-.pull-right {
-    float: right;
-}
-
-/*   CSS  */
-
-body{
-    background-color: black;
-    font-family: 'Open Sans';
     color: white;
-    
+    padding: 20px;
 }
 
-.header {
-    display: block;
-    width: 85%;
-    min-width: 800px;
-    max-width: 1550px;
-    margin: 0 auto;
+h3 {
+    font-size: 1.3em;
 }
 
-.main-menu{
-    display: flex;
-    width: 85%;
-    min-width: 800px;
-    max-width: 1550px;
-    margin-top: 5px;
-    margin-left: auto;
-    margin-right: auto;
+.bg_black {
+    background-color: #171717;
 }
 
-.main-menu ul li{
-    float: left;
-    font-size: 24px;
-    font-weight: 900;
-    margin: 0 3px;
+.bg_gray {
+    background-color: #7D7D7D;
 }
 
-
-li.hidden{
-    margin: 0;
-    padding: 0;
+.list {
+    padding-left: 50px;
+    font-size: 1.2em;
 }
 
-
-.content{
-    width: 100%;
-    padding: 25px 30px;
-    background-color: rgb(40, 40, 40);
-    margin-top: 50px;
-    line-height: 120%;
-}
-
-.content p{
-    margin-bottom: 5px;
-}
-
-.red-text{
-    color: rgb(193, 0, 5);
-    font-weight: 700;
-}
-
-.logo1{
-    max-width: 80%;
-}
-
-.logo2{
-    max-width: 20%;
-}
-
-.row{
-    width: 100%;
-    display: inline-block;
+h1 {
+    font-size: 10em;
     margin-top: 40px;
 }
 
-.pic{
-    width: 40%;
-    display: inline-block;
-    max-width: 600px;
+#login {
+    display: block;
+    margin: auto;
+    vertical-align: middle;
+    color: black;
+    background-image: url(../Images/147_loginContainer.png);
+    width: 628px;
+    background-repeat: no-repeat;
+    margin-top: 40px;
 }
 
-.desc{
-    width: 59%;
-    background-color: rgb(40, 40, 40);
-    padding: 25px 30px;
-    float: right;
-    font-size: 16px;
-    font-family: 'Calibri';
+#username {
+    text-align: left;
+    padding-left: 70px;
+    width: 440px;
+    background-repeat: no-repeat;
+    height: 45px;
+    background-image: url(../Images/147_usernameInput.png);
+    margin-top: 30px;
 }
 
-.desc b{
-    font-weight: 700;
+#password {
+    text-align: left;
+    padding-left: 70px;
+    width: 440px;
+    background-repeat: no-repeat;
+    height: 45px;
+    margin-top: 30px;
+    background-image: url(../Images/147_passwordInput.png);
 }
 
-.pic img{
-    float: right;
-}
-
-a,
-a:visited,
-a:focus,
-a:hover{
-    color: white;
-}
-
-a.active{
-    color: red;
-}
-
-.target-container {
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.target-element {
-    display: flex;
-    background: black;
-    margin-bottom: 20px;
-    padding: 10px;
-    align-items: flex-start;
-    gap: 20px;
-}
-
-.target-element img {
-    width: 350px;
-    height: auto;
-}
-
-.target-info {
-    flex: 1;
-    background-color: rgb(40, 40, 40);
-    height: auto;
-    margin: 0;
-    color: white;
-    padding: 10px;
-    font-size: 17px;
-    font-family: Sans-serif;
-}
-.target-info .label {
-    font-family: 'Sans-serif';
-    font-weight: bold;
-    text-transform: uppercase;
-    margin-right: 5px;
-    font-size: 19px;
-}
-
-.kill-price {
-    font-family: Sans-serif;
-    font-weight: bold;
-    font-style: italic;
-    color: #C10005;
-    font-size: 50px;
-}
-
-.redacted {
-    position: relative;
-    white-space: pre;
-}
-
-.redacted::after {
-    content: " ";
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 1.2em;
-    background: black;
-    border-radius: 0.1em;
-    box-shadow: 0 0 1px rgba(0,0,0,0.35);
-    transform: skewY(-5deg) rotate(5deg);
+#login>#signinbtn {
+    display: block;
+    background-image: url(../Images/147_signInButton.png);
+    width: 500px;
+    margin: auto;
+    height: 50px;
+    margin-top: 30px;
+    cursor: pointer;
 }

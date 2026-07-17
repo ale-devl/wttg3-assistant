@@ -1,63 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RedTriangle</title>
-    <link rel="stylesheet" href="Assets/reset.css">
-    <script src="Assets/Basic.js" defer></script>
-    <link rel="stylesheet" href="Assets/175_style.css">
-    <link rel="stylesheet" href="Assets/style-clickpoints.css" type="text/css">
+  <head>
+    <script type="text/javascript" src="Assets/Basic.js"></script>
+    <link rel="stylesheet" href="Assets/reset.css" />
+    <link rel="stylesheet" href="Assets/175_style.css" />
+      <link rel="stylesheet" href="Assets/style-clickpoints.css" type="text/css">
     <script src="Assets/script.js"></script>
 </head>
-<body>
+  <body onload="minutesRemain()">
+    <script type="text/javascript" src="Assets/175_script.js"></script>
     <div class="header">
-        <img src="Images/175_triangle.jpg" alt="Triangle" class="triangle">
-        <em class="PTAG"></em>
+      <div class="logo">
+        <a onClick="LinkClick('175.html')" class="active">shelter</a>
+      </div>
+      <div class="navbar">
+        <a onClick="LinkClick('176.html')" class="active">donate/subscribe</a>
+        <a onClick="LinkClick('177.html')" class="active">events</a>
+      </div>
     </div>
-    <hr class="divider">
-    <div class="main">
-        <img src="Images/175_triRing.png" alt="Triangle ring" class="triangle-ring">
-        <img src="Images/175_numeral-1.png" alt="Numerals-III-I-IV-IV" class="numeral-1">
-        <div class="triangle-wrapper">
-            <span>70</span>
-            <span>6c 61</span>
-            <span>63 65 2e 48</span>
-            <span>65 20 6d 61 79 20</span>
-            <span>6e 6f 74 20 62 65 20 74</span>
-            <span>68 65 20 6f 6e 6c 79 20 6f 6e</span>
-            <span>65 20 77 68 6f 20 6c 75 72 6b 73</span>
-            <span>20 77 69 74 68 69 6e <a class="CPTAG">20 79</a> 6f 75 72 20</span>
-            <span>68 6f 75 73 65 2e 20 54 68 65 20 70 72 65</span>
-            <span>79 20 6f 66 20 74 68 65 20 6f 6e 65 20 4d 61 79</span>
-            <span>20 62 65 20 74 68 65 20 70 72 65 79 20 6f 66 20 74 77</span>
-            <span>6f 2e 20 53 68 65 20 77 69 6c 6c 20 62 65 20 69 6e 20 79 6f</span>
-            <span>75 72 20 73 68 61 64 6f 77 20 77 68 65 6e 20 79 6f 75 20 67 61</span>
-            <span>7a 65 <a class = "CPTAG">20</a> 75 70 6f 6e 20 68 69 6d 2e 20 54 68 6f 73 65 20 77 68 6f</span>
-            <span>20 69 6e 64 75 6c 67 65 20 69 6e 20 6d 61 74 65 72 69 61 6c</span>
-            <span>69 73 6d 20 77 69 6c 6c 20 68 65 61 72 20 68 69 73 20</span>
-            <span>62 72 65 61 74 68 20 61 6e 64 20 73 65 65 6b 20</span>
-            <span>73 68 65 6c 74 65 72 20 <a class="CFTAG">66 72</a> 6f 6d 20 74 68</span>
-            <span>65 20 72 61 69 6e 20 6f 66 20 62 6c 6f 6f</span>
-            <span>64 2e 20 59 6f 75 20 61 72 65 20 <em class="PTAG"></em></span>
-            <span>61 6c 6f 6e 65 2e 20 59 6f 75</span>
-            <span>20 77 69 6c 6c 20 64 69</span>
-            <span>65 20 69 6e 20 74</span>
-            <span>68 69 73 20</span>
-            <span>70 6c 61</span>
-            <span><a class = "CFTAG">63</a></span>
+    <div class="bodyText">
+      <span>
+        Introducing the third installment of <a class = "CFTAG">Shelter</a>. Where you can help decide
+        the fate of the Johnson family.
 
+        <br /><br />Purchased subscriptions add to the time left on their stay
+        inside Shelter. Supplies are limited and when they run dry difficult
+        decisions will need to be made. Donations can be sent to either increase
+        or decrease their remaining time left. <em class="PTAG"></em> Once the
+        timer reaches 0 the family is freed, no strings attached.
+      </span>
+      <div class="imgContent">
+        <span class="imgSubtitle">
+          <a class="CPTAG">&lt;--</a> image of timer shown<br />to the family.
+        </span>
+        <span class="timer">
+          Current time before<br />The Johnson Family is<br />released:
+        </span>
+        <div class="minutes">
+          <span id="minutes"> </span>
+          <span>
+            <br />minutes <a class="CFTAG">remain</a>
+
+            <br /><br />
+            total time inside Shelter<br />46,863 minutes
+          </span>
         </div>
-        <em class="PTAG tria"></em>
-        <img src="Images/175_numeral-2.png" alt="Numerals-II-VI-V-III-V" class="numeral-2">
-        <div class="codepages">
-            <img src="Images/175_codepage-1.png" alt="Codepage-1">
-            <a class = "CFTAG"><img src="Images/175_codepage-2.png" alt="Codepage-2"></a>
-        </div>
-        <div class="numerals">
-            <span>III I IV I V IX II VI V <a class="CPTAG">III</a> V VIII</span>
-        </div>
-        <em class="PTAG numer"></em>
+      </div>
+      <span>
+        The Johnson family is locked away in a remote location and filmed via
+        one wide lens camera. Previous day footage is shared the following day.
+        No livestream will ever be available.
+        <br /><br />
+        The family is aware of their situation <em class="PTAG"></em> and can see a timer that updates
+        three times per day with the minutes they have left in Shelter. The
+        timer can never exceed
+        <span style="font-family: 'Goldman'">9999 minutes</span>.
+        <em class="PTAG"></em> <br /><br />
+        Periodically the family will receive a challenge that if completed
+        decreases their time left in Shelter. Viewers who <a class="CPTAG">increase</a> the remaining
+        time encourage family members to accept the challenge terms. Consider
+        subscribing or donating for more thrilling content.
+      </span>
+      <div class="finalText">
+        <br />
+        What are you rooting for, their survival or something terrible?
+        <br /><br />
+        Where will you be when their fate is determined?
+      </div>
+      <br /><br />
+      <div class="video">
+        <span>WATCH THE <a class="CFTAG">JOHNSON</a> FAMILY</span><br />
+        <button onclick="watchRecent()" class="btnPlay">
+          <img src="Images/175_playButton.png" id="play" style="height: 60px" />
+        </button>
+        <em class="PTAG text-dark"></em>
+      </div>
+      <br /><br />
+      <div class="bottomText">
+        <span class="wantMore">WANT MORE?</span>
+        <br />
+        <span>
+          Subscribers get full access to the events page displaying every
+          memorable moment filmed in the past <a class = "CPTAG">14</a> days.
+        </span>
+        <br /><br />
+        <a onClick="LinkClick('176.html')" class="active">Subscribe here</a>
+      </div>
     </div>
-</body>
+  </body>
 </html>

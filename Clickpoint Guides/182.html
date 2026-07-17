@@ -1,53 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE HTML>
+<html language="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Symphoros Chosen</title>
-    <script type="text/javascript" src="Assets/Basic.js"></script>
-    <script type="text/javascript" src="Assets/181_live.js"></script>
-    <link rel="stylesheet" href="Assets/reset.css"/>
-    <link rel="stylesheet" href="Assets/181_style.css">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+	<meta name="description" content="">
+	<title>Get Money!</title>
+	<link rel="stylesheet" href="Assets/reset.css"/>
+	<link rel="stylesheet" href="Assets/181_style.css" type="text/css">
+	<script type="text/javascript" src="Assets/Basic.js"></script>
     <link rel="stylesheet" href="Assets/style-clickpoints.css" type="text/css">
     <script src="Assets/script.js"></script>
 </head>
-<body>
-    <header class="flex-row align-items-center w-100 Syncopate-Regular">
-        <div onClick="LinkClick('181.html')" id="logo" class="flex-col me-auto w-fit self-start Charm-Bold cursor-pointer">
-            <p class="mt-0 mb-0 text-size-32">Symphoro's Chosen</p>
-            <p class="mt-0 mb-0 text-center">Red Room Hub</p>
-        </div>
-        <em id="HEADER-TAG" class="PTAG"></em>
-    </header>
-
-    <div id="live-payment" class="MPLUS-Regular mt-5 text-size-24 mx-auto">
-        <p class="text-center">A small charge is <a class="CFTAG">required</a> before admission into the show can be granted</p>
-
-        <div class="flex-row mt-3">
-            <figure id="qr-block">
-                <img id="qr-code" src="Images/181_easyQRconnect.png">
-                    <div id="qr-link"></div>
-                <em id="QR-TAG" class="PTAG"></em>
-            </figure>
-
-            <form class="flex-col">
-                <label class="MPLUS-SemiBold mb-1" for="amount"><a class="CPTAG">Amount</a> to transfer</label>
-                <input type="text" id="amount" class="text-size-18 MPLUS-Medium" name="amount" value="19.8 DOSCoin" disabled>
-
-                <label class="MPLUS-SemiBold mt-3 mb-1" for="wallet">Sending to this wallet</label>
-                <input type="text" id="wallet" class="text-size-18 MPLUS-Medium" name="wallet" value="3yW5Acq0GFz7Y2t0EwL67nGisiWgN" disabled>
-
-                <p class="text-size-14 mt-1">Send the exact amount in a single transaction to the <a class="CFTAG">wallet</a> address provided above.</p>
-            </form>
-        </div>
-
-        <p class="text-size-14 mt-2 w-75 mx-auto">
-            After payment is confirmed this page will automatically redirect you to an authorization page where you <a class="CPTAG">must</a> enter your wallet address.
-            Authorization is only <em class="PTAG"></em> active for a limited time, have your details ready before sending payment.</p>
-        <figure class="mt-3 w-fit mx-auto">
-            <img id="validate-btn" class="cursor-pointer" onclick="ValidatePayment()" src="Images/181_validateButton.png">
-        </figure>
-    </div>
-    <em id="CORNER-TAG" class="PTAG"></em>
+<body class="page-getmoney">
+    <div class="title">
+		<img src="Images/181_money.gif">
+		<div>
+			<h1>REAL MONEY GENERATOR</h1>
+			<h2 class="bold">VERSION 3.06 <em class="PTAG"></em></h2>
+		</div>
+	</div>
+	<div class="doYouLike">
+		<div class="rowWrap i">
+			<p>Do you like money</p>
+			<a class="CFTAG"><img src="Images/181_question.gif"></a>
+		</div>
+		<div class="rowWrap ii">
+			<img src="Images/181_dollar.gif">
+			<p>Generate free money with our fast download program</p>
+		</div>
+		<p class="iii">Only limited number of downloads available</p>
+		<img class="downloadArrow" src="Images/181_downloadArrow.gif">
+	</div>
+	<div class="serving">
+		<h2 class="currently">CURRENTLY SERVING<br>visitor #194501828<em class="PTAG"></em></h2>
+		<a class="CPTAG"><img src="Images/181_wow.gif"></a>
+		<div class="rowWrap">
+			<h2 class="reserve bold">RESERVE YOUR SPOT</h2>
+			<img src="Images/181_exclamation.gif">
+		</div>
+		<div class="rowWrap click">
+			<img src="Images/181_arrowRight.gif">
+			<a onclick="LinkClick('185.html')"><img src="Images/181_clickButton.gif"></a>
+			<img src="Images/181_arrowLeft.gif">
+		</div>
+		<h2 class="waiting">waiting for <a class="CFTAG">response</a></h2>
+		<img src="Images/181_loading.gif">
+		<h2 class="download bold">download becomes available when your <a class = "CPTAG">spot</a> in line is called<em class="PTAG"></em></h2>
+		<img src="Images/181_downloadButton.png">
+	</div>
+	<div class="footer">
+		<em class="PTAG"></em>
+		<p>you are totally not supposed to see this ʕ •ᴥ•ʔ</p>
+	</div>
 </body>
 </html>
