@@ -18,7 +18,7 @@
 
 //==========================================================================Static Data
 var wikidata = {
-	"Bizzare Propagation":  {id:100, times:":30 - :44"},
+	"Bizarre Propagation":  {id:100, times:":30 - :44"},
 	"Blackhat Post":        {id:101,sub:["submit"], times:":00 - :29"},
 	"Blushing Brides":      {id:103,sub:["join","samples"]},
 	"Building A Future":     {id:106,sub:["invest"], times:":15 - :29"},
