@@ -20,6 +20,9 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+.icon-save:before {
+    content: "\f478";
+}
 .icon-discord:before {
     content: "\f14c";
 }

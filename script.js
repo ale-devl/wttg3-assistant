@@ -19,15 +19,15 @@
 //==========================================================================Static Data
 var wikidata = {
 	"Bizarre Propagation":  {id:100, times:":30 - :44"},
-	"Blackhat Post":        {id:101,sub:["submit"], times:":00 - :29"},
+	"Blackhat Post":        {id:101,sub:["submit"], times:":00 - :29", forceHack: [0, "87%"]},
 	"Blushing Brides":      {id:103,sub:["join","samples"]},
 	"Building A Future":     {id:106,sub:["invest"], times:":15 - :29"},
 	"Cavity Lease":         {id:108,sub:["submit"]},
 	"Chevron":             {id:110, times:":30 - :59"},
 	"Crisis Calls":         {id:111,sub:["account","resetpassword"]},
 	"Crystal Guild":        {id:114,sub:["welcome"], times:":30 - :44"},
-	"Doctor Murder":        {id:116},
-	"Dont Waste It":         {id:117,sub:["holdit","no","yes"]},
+	"Doctor Murder":        {id:116, forceHack: [0, "40%"]},
+	"Dont Waste It":         {id:117,sub:["holdit","no","yes"], forceHack: [2, "40%"]},
 	"Doughy":              {id:121},
 	"Drug Tickets":         {id:122,sub:["checkout","error"], times:":00 - :29"},
 	"Eat My Shit":                 {id:125,sub:["faq","questions","secret"], times:":15 - :29"},
@@ -40,12 +40,12 @@ var wikidata = {
 	"Jakobs Sink":          {id:140},
 	"Keep Sake":            {id:141,sub:["contact","thesearch"], times:":30 - :44"},
 	"Kill For Me":           {id:144,sub:["instructions","targets"], times:":00 - :29"},
-	"Lab Monkey":           {id:147,sub:["catalog","error","sign-in"], times:":30 - :59"},
-	"LostTapes":           {id:151,sub:["page2","purchase"]},
+	"Lab Monkey":           {id:147,sub:["catalog","error","sign-in"], times:":30 - :59", forceHack: [2, "87%"]},
+	"LostTapes":           {id:151,sub:["page2","purchase"], forceHack: [1, "40%"]},
 	"MamaBruguglio":       {id:154, times:":00 - :29"},
 	"Mors N More Market":     {id:155,sub:["menu","order","ordersent"], times:":00 - :14"},
 	"Oneless":             {id:159},
-	"Order Of Nine":         {id:160,sub:["join"], times:":00 - :14"},
+	"Order Of Nine":         {id:160,sub:["join"], times:":00 - :14", forceHack: [1, "87%"]},
 	"Overnight Success":    {id:162,sub:["purchase"], times:":15 - :29"},
 	"Prohibited Stockpile": {id:164,sub:["nocontent"]},
 	"Red Handed":           {id:166,sub:["login","post1","post2","post4","post6"], times:":00 - :29"},
@@ -54,7 +54,7 @@ var wikidata = {
 	"Shelter":             {id:175,sub:["donate","events"], times:":30 - :44"},
 	"Symphoros Chosen":     {id:178,sub:["live","sendlinks"]},
 	"Synapse Decay":        {id:181,sub:["getmoney","myfriends","occasionally","succulentmeal"]},
-	"Tango Down":           {id:186,sub:["hire","payment","results"]},
+	"Tango Down":           {id:186,sub:["hire","payment","results"], forceHack: [2, "87%"]},
 	"Thanks For Visiting!":    {id:190,sub:["bar","connected","creepy","fakemain","jolly","plug","portal","sleeptalk","slide2","smile","ulike","vision"]},
 	"The Bomb Maker":        {id:203},
 	"The Grey":             {id:204,sub:["centrum","inanis","interius","latus"], times:":30 - :59"},
@@ -62,13 +62,13 @@ var wikidata = {
 	"The Hole":             {id:211},
 	"The Light Within":      {id:212,sub:["saved"]},
 	"The Loogaroo":         {id:214,sub:["locations"]},
-	"The Prey":             {id:216, times:":00 - :14"},
+	"The Prey":             {id:216, times:":00 - :14", forceHack: [0, "40%"]},
 	"Time Sharing":         {id:217,sub:["packages","watch"]},
 	"TRACK06":             {id:220},
 	"ViaMarisRoute":       {id:221,sub:["order","secondpage","thirdpage"], times:":00 - :29"},
 	"VoluVision":          {id:225,sub:["purchase","testimonials"]},
 	"World Wide Workers":    {id:228,sub:["about","submit"]},
-	"You There?":            {id:231, times:":30 - :44"}
+	"You There?":            {id:231, times:":30 - :44", forceHack: [0, "87%"]}
 };
 var tips = [
 		"Remember to check in the source code",
@@ -100,7 +100,7 @@ var data = {
 		"beep":new Audio('Assets/general_motionsensoralert.mp3'),
 		"ding":new Audio('Assets/general_positivebeep.mp3')},
 	"note":{
-		"keys":full_array(8,"????????????"),
+		"keys":full_array(8,"????"),
 		"content":""},
 	"info":{
 		"current":0},
@@ -180,7 +180,7 @@ function wiki_update(m) {//Updates the currently displayed data, also handles cu
 	}
 
 	function wiki_appendsite(t,n) {//Take a website name and display the associated data
-		var a,b,c,d,e,f,g,h,i;
+		var a,b,c,d,e,f,g,h,i, forceHackData;
 		e = wikidata[n];
 		i = data.wiki.sites[data.wiki.current][n];
 		if (e == undefined) {
@@ -195,14 +195,22 @@ function wiki_update(m) {//Updates the currently displayed data, also handles cu
 		}
 		f = e.id;
 		g = (e.sub?.length ?? 0) + 1;
+		forceHackData = e.forceHack;
+		//console.log(forceHackData);
 		for (h = 0; g > h; h++) {
-			//console.log(n,i,i[h])
+			//console.log(h, n,i,i[h])
 			a = t.insertRow(-1);
 			b = a.insertCell(0);
 			c = a.insertCell(1);
 			d = a.insertCell(2);
 			b.innerHTML = (h != 0) ? (((h + 1 == g) ? '⠀└─ ':'⠀├─ ') + e.sub[h - 1]):n;
 			c.innerHTML = (h != 0) ? ('<i class="child">⠀Subpage</i>'):((e.times == undefined) ? 'Always Available':e.times);
+			if(forceHackData != undefined){
+				if(forceHackData[0] == h){
+					b.classList.add("force_hack_site");
+					b.innerHTML += ` (${forceHackData[1]} FH)`
+				}
+			}
 			d.innerHTML = `<div class="wiki_notewrapper"><button onclick="wiki_previewupdate(${f + h})"><i class="icon-mouse-pointer"></i></button> <button class="${(i[h][0]) ? "":"secondary"}" onclick="wiki_notetoggle(this,'${n}',${h},0)"><i class="icon-search"></i></button><button class="${(i[h][1]) ? "":"secondary"}" onclick="wiki_notetoggle(this,'${n}',${h},1)"><i class="icon-search-plus"></i></button><button class="${(i[h][2]) ? "":"secondary"}" onclick="wiki_notetoggle(this,'${n}',${h},2)"><i class="icon-key"></i></button><button class="${(i[h][3]) ? "":"secondary"}" onclick="wiki_notetoggle(this,'${n}',${h},3)"><i class="icon-chain"></i></button></div>`;
 		}
 	}
@@ -305,10 +313,11 @@ function wiki_previewupdate(i) {//Updates and displays the key clickpoints popup
 //=============================
 function note_input() {//Attempts to find and save keys within the note block's data
 	var content = document.getElementById("note_input").value;
-	var lkeys = content.match(/[1-8] - [\w]{12}/g);
+	data.note.content = content;
+	var lkeys = content.match(/[1-8] - \w{4}(?= |\r?\n|$)/g);
 	if (lkeys !== null) {lkeys.forEach(function (a) {data.note.keys[a.slice(0,1) - 1] = a.slice(4,16);});}
 	document.getElementById("note_keyoutput").innerHTML = `<b>Key Data</b><br>${data.note.keys.join("").substr(0,48)}<br>${data.note.keys.join("").substr(48,48)}`;
-	if (data.note.keys.indexOf("????????????") == -1) {document.getElementById("note_keyoutput").innerHTML = `<b>Master Key</b><br><span class="select-all">${data.note.keys.join("")}</span>`;}
+	if (data.note.keys.indexOf("????") == -1) {document.getElementById("note_keyoutput").innerHTML = `<b>Master Key</b><br><span class="select-all">${data.note.keys.join("")}</span>`;}
 	if (data.popup.notes.active == 1) {
 		data.popup.notes.reference.document.getElementById("content").innerHTML = content;
 	}
@@ -326,7 +335,14 @@ function info_update(i) {//Change info page
 
 function setcolor(i,c) {//Updates the site color configuration in memory
 	localStorage.setItem(`color${i}`,c);
-	document.getElementById("dom_color").innerHTML = `body {color:hsl(${localStorage.getItem('color0')},100%,50%)} .simplebar-scrollbar::before {background-color:hsl(${localStorage.getItem('color0')},100%,50%)} .child {color:hsl(${localStorage.getItem('color0')},100%,30%)} .secondary {color:hsl(${localStorage.getItem('color1')},100%,50%)} .disabled {color:hsl(${localStorage.getItem('color1')},100%,20%)}`;
+	document.getElementById("dom_color").innerHTML = `
+		body {color:hsl(${localStorage.getItem('color0')},100%,50%)} 
+		.simplebar-scrollbar::before {background-color:hsl(${localStorage.getItem('color0')},100%,50%)} 
+		.child {color:hsl(${localStorage.getItem('color0')},100%,30%)} 
+		.secondary {color:hsl(${localStorage.getItem('color1')},100%,50%)} 
+		.disabled {color:hsl(${localStorage.getItem('color1')},100%,20%)}
+		.force_hack_site {color:hsl(${localStorage.getItem('color2')},100%,50%)}
+	`;
 }
 
 //=============================
@@ -417,4 +433,83 @@ function reset() {//Reset all run data in the assistant
 function click() {//Plays the click sound
 	data.general.click.currentTime = 0;
 	data.general.click.play();
+}
+
+//----------------------------------
+//-------- SAVING FUNCTIONS --------
+//----------------------------------
+
+const SAVE_KEY = "wttg2_savedata";
+
+function save_state() {//manually saves wiki, note, wifi and tenant data to localStorage
+	click();
+	var snapshot = {
+		"version":1,
+		"wiki":{
+			"current":data.wiki.current,
+			"sites":data.wiki.sites,
+			"keys":data.wiki.keys,
+			"total":data.wiki.total},
+		"note":{
+			"keys":data.note.keys,
+			"content":data.note.content}
+	};
+	localStorage.setItem(SAVE_KEY,JSON.stringify(snapshot));
+	save_status("Progress saved!");
+}
+
+function load_state() {//restores wiki, note, wifi and tenant data from localStorage. returns true on success
+	var raw = localStorage.getItem(SAVE_KEY);
+	if (!raw) {return false;}
+	try {
+		var s = JSON.parse(raw);
+		if (s.version !== 1) {return false;}
+		data.wiki.current = s.wiki.current;
+		data.wiki.sites = s.wiki.sites;
+		data.wiki.keys = s.wiki.keys;
+		data.wiki.total = s.wiki.total;
+		data.note.keys = s.note.keys;
+		data.note.content = s.note.content;
+		return true;
+	} catch(e) {
+		console.error("Failed to load saved data",e);
+		return false;
+	}
+}
+
+function ui_load_state() {//button handler: loads saved data and repaints the UI
+	click();
+	if (!load_state()) {
+		save_status("No saved progress found.");
+		return;
+	}
+	refresh_ui();
+	save_status("Progress loaded!");
+}
+
+function clear_state() {//button handler: wipes saved data and resets in-memory run data (colors/popups untouched)
+	click();
+	if (!confirm("Clear all saved progress? This cannot be undone.")) {return;}
+	localStorage.removeItem(SAVE_KEY);
+	data.wiki.current = 1;
+	data.wiki.sites = [null,{},{},{}];
+	data.wiki.keys = [null,0,0,0];
+	data.wiki.total = [null,2,3,3];
+	data.note.keys = full_array(8,"????????????");
+	data.note.content = "";
+	refresh_ui();
+	save_status("Saved progress cleared.");
+}
+
+function save_status(msg) {//updates the small status line under the save/load/clear buttons
+	document.getElementById("save_status").innerText = msg;
+}
+
+function refresh_ui() {//repaints all DOM elements to reflect the current `data` state
+	document.getElementById("wiki_title").innerHTML = "Wiki " + "III".slice(0,data.wiki.current);
+	wiki_updatekeys();
+	wiki_update();
+
+	document.getElementById("note_input").value = data.note.content;
+	note_input();
 }

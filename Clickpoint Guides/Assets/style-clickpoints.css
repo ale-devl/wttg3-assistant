@@ -82,3 +82,6 @@ a.CFTAG.CPTAG > img {
 img.nudity {
   filter:blur(18px) !important;
 }
+#chat {
+    pointer-events: auto !important;
+}

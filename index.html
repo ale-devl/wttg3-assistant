@@ -17,13 +17,14 @@
 		along with this program.  If not, see <https://www.gnu.org/licenses/>.  -->
 <html lang="en">
 	<head>
-		<!--<script async src="https://www.googletagmanager.com/gtag/js?id=G-JLTNFMGNG4"></script>
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-QR1BKSGCWW"></script>
 		<script>
-			window.dataLayer = window.dataLayer || [];
-			function gtag(){dataLayer.push(arguments);}
-			gtag('js', new Date());
-			gtag('config', 'G-JLTNFMGNG4');
-		</script>-->
+  			window.dataLayer = window.dataLayer || [];
+  			function gtag(){dataLayer.push(arguments);}
+  			gtag('js', new Date());
+
+  			gtag('config', 'G-QR1BKSGCWW');
+		</script>
 		<title>WTTG3 Assistant</title>
 		<meta charset="utf-8">
 		<meta name="theme-color" content="#111111">
@@ -54,15 +55,12 @@
 		</style>
 	</head>
 	<body onload="setup()">
-		<p id="version" class="version"><i>WTTG3 Assistant Version 1.2.1</i></p>
+		<p id="version" class="version"><i>WTTG3 Assistant Version 1.3.0</i></p>
 
-		<!--<h3>The site is currently being modified and the clickpoints guides currently do not function. If you experience any other issues, please reload or try again later!</h3>-->
-		<!--<h3>The site's scripts are currently being modified. If you experience any issues, please reload or try again later!</h3>-->
-		<!-- <h3>Join <a href="https://discord.gg/dHg4PV68tQ">OverDark's Discord Server</a> to contribute to this assistant, we're currently looking for people researching the game</h3> -->
 
 		<!-- Wiki Data Block -->
 		<div class="block_main">
-			<p class="version"><i>Wiki Block Version 1.2.0</i></p>
+			<p class="version"><i>Wiki Block Version 1.3.0</i></p>
 			<div class="wiki_headerwrapper">
 				<div>
 					<button onclick="wiki_update(-1)" style="width:38px;height:38px;"><i class="icon-arrow-left icon-2x"></i></button>
@@ -96,19 +94,18 @@
 
 		<!-- Notepad Block -->
 		<div class="block_main">
-			<p class="version"><i>Notepad Block Version 1.0.0</i></p>
+			<p class="version"><i>Notepad Block Version 1.1.0</i></p>
 			<h1 style="margin: 10px 0 0 0">Notes</h1>
-			<p style="margin: 0 0 0 0; visibility: hidden"><i>Pasted keys will be compiled automatically!</i></p>
+			<p style="margin: 0 0 0 0;"><i>Pasted decrypted keys will be compiled automatically!</i></p>
 			<textarea oninput="note_input()" class="note_input" id="note_input"></textarea>
-			<p id="note_keyoutput" class="note_keydata" style="visibility: hidden"><b>Key Data</b><br>
-				????????????????????????????????????????????????<br>
-				????????????????????????????????????????????????
+			<p id="note_keyoutput" class="note_keydata"><b>Key Data</b><br>
+				????????????????????????????????
 			</p>
 		</div>
 
 		<!-- Info Block -->
 		<div class="block_main">
-			<p class="version"><i>Info Block Version 1.0.1</i></p>
+			<p class="version"><i>Info Block Version 1.1.0</i></p>
 			<h1 style="margin: 10px 0 0 0">Info</h1><br>
 			<div class="block_list" style="height:567px" data-simplebar>
 				<div id="info_list">
@@ -143,7 +140,25 @@
 							<h3>Special Thanks</h3>
 								<p>
 									<a href="https://www.youtube.com/@OverDarkXD" target="_blank" rel="noreferrer"><i class="icon-youtube"></i> OverDark</a><br>
+									<a>jstmaxlol</a> - Saving Code <br>
 								</p>
+					</div>
+					<div title="Save Data" icon="icon-save">
+						<p>Manually save the assistant data so they survive a refresh. This does not include your color or popup preferences, which are always saved automatically.</p>
+            				<button onclick="save_state()">Save State</button>
+            				<button onclick="ui_load_state()">Load State</button>
+            				<button onclick="clear_state()">Clear Saved Data</button>
+            				<p id="save_status" class="secondary" style="min-height:14px;"></p>
+					</div>
+					<div title="Force Hacks" icon="icon-circle">
+						<h1>Force Hacks</h1>
+						Some websites have a chance of triggering a hack when you visit them. You can utilize this in order to force hacks and gain rep.<br><br>
+						These sites are marked in the wiki block with a different color, and the chance for them to hack you is displayed next to the name. <br><br>
+						Note that after a successful hack attempt this behavior goes on cooldown. The cooldown time varies on the chance: <br>
+						<ul>
+							<li>87% Chance - 4 minutes 15 seconds</li>
+							<li>40% Chance - 3 minutes</li>
+						</ul>
 					</div>
 					<div title="Settings" icon="icon-cog">
 						<h1>Settings</h1>
@@ -151,8 +166,10 @@
 								<tbody>
 									<tr><td>Primary Color</td><td><input oninput="setcolor(0,this.value)" type="range" min="0" max="360" value="120" id="setting_colorprimary"></td></tr>
 									<tr><td>Secondary Color</td><td><input oninput="setcolor(1,this.value)" type="range" min="0" max="360" value="0" id="setting_colorsecondary"></td></tr>
+									<tr><td>Forcehack Site Color</td><td><input oninput="setcolor(2,this.value)" type="range" min="0" max="360" value="190" id="setting_colorforcehack"></td></tr>
 								</tbody>
 							</table>
+							
 					</div>
 					<div title="Feedback" icon="icon-question-circle">
 						<h1>Feedback</h1>
@@ -179,8 +196,6 @@
 				Logging in as anonymous user...<br>
 				<br>
 				Loading data structures...<br>
-				Loading wifidata...<br>
-				Loading tenantdata...<br>
 				Loading wikidata...<br>
 				Loading keydata...<br>
 				Loading user preferences...<br>

@@ -409,3 +409,7 @@ display:none;
 #wiki_keys{
     visibility: hidden;
 }
+
+.force_hack_site{
+	color:hsl(190,100%,50%)
+}
