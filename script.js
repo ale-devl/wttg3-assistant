@@ -439,7 +439,7 @@ function click() {//Plays the click sound
 //-------- SAVING FUNCTIONS --------
 //----------------------------------
 
-const SAVE_KEY = "wttg2_savedata";
+const SAVE_KEY = "wttg3_savedata";
 
 function save_state() {//manually saves wiki, note, wifi and tenant data to localStorage
 	click();
