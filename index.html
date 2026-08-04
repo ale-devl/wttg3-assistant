@@ -86,8 +86,6 @@
 					<tr><td>[ <i class="icon-key"></i> ] Key Found Here</td></tr>
 					<tr><td>[ <i class="icon-chain"></i> ] Fetch URL Found Here</td></tr>
 					<tr><td><p>To get started you can import your websites by copying the website list from a Deep Wiki inside the game into the box above. (If this does not work, you can also manually import using the edit button above.)</p></td></tr>
-					<tr><td><span onclick="wiki_demo()">&gt; Click here for a demo of the wiki block!</span></td></tr>
-					<tr><td class="secondary"><br>&gt; Refreshing the page will erase all data</td></tr>
 				</table>
 			</div>
 		</div>
@@ -144,11 +142,10 @@
 								</p>
 					</div>
 					<div title="Save Data" icon="icon-save">
-						<p>Manually save the assistant data so they survive a refresh. This does not include your color or popup preferences, which are always saved automatically.</p>
-            				<button onclick="save_state()">Save State</button>
-            				<button onclick="ui_load_state()">Load State</button>
-            				<button onclick="clear_state()">Clear Saved Data</button>
-            				<p id="save_status" class="secondary" style="min-height:14px;"></p>
+						<h1>Save Data</h1>
+						<p>Your wiki progress and notes are saved automatically whenever they change.</p>
+						<p>Starting a new playthrough clears that progress but keeps your color preferences.</p>
+						<button onclick="reset_playthrough()">Start New Playthrough</button>
 					</div>
 					<div title="Force Hacks" icon="icon-circle">
 						<h1>Force Hacks</h1>
@@ -179,9 +176,75 @@
 			</div>
 		</div>
 
-		<!-- Tips Banner -->
-		<div>
-			<p style="margin: 5px 0 0 0;font-family: Consolas,monaco,monospace;" id="tips">[Tip] Welcome To The Game</p>
+		<!-- Game Reference Sections -->
+		<div class="reference_sections">
+			<section class="reference_block miners_block">
+				<h1>VM Grid Mining Rates</h1>
+				<div class="miner_tiers">
+					<div>
+						<h2>Tier 1</h2>
+						<table>
+							<tbody>
+								<tr><td>WebTyk</td><td>2.06 Dos/Min</td></tr>
+								<tr><td>Userjyx</td><td>2.02 Dos/Min</td></tr>
+								<tr><td>NetVorn</td><td>1.62 Dos/Min</td></tr>
+								<tr><td>CloudFuz</td><td>0.99 Dos/Min</td></tr>
+								<tr><td>SysBlip</td><td>0.97 Dos/Min</td></tr>
+								<tr><td>DevQuix</td><td>0.72 Dos/Min</td></tr>
+								<tr><td>it_Kwez</td><td>0.47 Dos/Min</td></tr>
+								<tr><td>DataRax</td><td>0.34 Dos/Min</td></tr>
+								<tr><td>WorkZap</td><td>0.33 Dos/Min</td></tr>
+								<tr><td>CodePlix</td><td>0.33 Dos/Min</td></tr>
+							</tbody>
+						</table>
+					</div>
+					<div>
+						<h2>Tier 2</h2>
+						<table>
+							<tbody>
+								<tr><td>OpsHax</td><td>4.04 Dos/Min</td></tr>
+								<tr><td>SecCrux</td><td>3.41 Dos/Min</td></tr>
+								<tr><td>GameDrux</td><td>3.21 Dos/Min</td></tr>
+								<tr><td>PrintYiv</td><td>3.03 Dos/Min</td></tr>
+								<tr><td>FileNuz</td><td>2.35 Dos/Min</td></tr>
+								<tr><td>ProdGlin</td><td>2.25 Dos/Min</td></tr>
+								<tr><td>VM_Wekl</td><td>2.17 Dos/Min</td></tr>
+								<tr><td>BackSkiv</td><td>1.87 Dos/Min</td></tr>
+								<tr><td>TestXor</td><td>1.70 Dos/Min</td></tr>
+								<tr><td>LabBzob</td><td>0.61 Dos/Min</td></tr>
+							</tbody>
+						</table>
+					</div>
+					<div>
+						<h2>Tier 3 <small>(Incomplete)</small></h2>
+						<table>
+							<tbody>
+								<tr><td>Phoenix</td><td>5.47 Dos/Min</td></tr>
+								<tr><td>MediaVlu</td><td>4.50 Dos/Min</td></tr>
+								<tr><td>QA_Pivz</td><td>4.09 Dos/Min</td></tr>
+								<tr><td>HR_Treq</td><td>3.91 Dos/Min</td></tr>
+								<tr><td>FinLuxu</td><td>3.86 Dos/Min</td></tr>
+								<tr><td>VPN_Ower</td><td>3.86 Dos/Min</td></tr>
+								<tr><td>SalesMiv</td><td>3.66 Dos/Min</td></tr>
+								<tr><td>ChatEzk</td><td>3.63 Dos/Min</td></tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</section>
+
+			<section class="reference_block noir_block">
+				<h1>Noir</h1>
+				<p>Use these timings when dealing with Noir:</p>
+				<table>
+					<tbody>
+						<tr><th>Encounter</th><th>Response</th></tr>
+						<tr><td>Solo male</td><td>Shine the light, turn away, wait 10 seconds, then turn back.</td></tr>
+						<tr><td>Pair, female on left</td><td>10 seconds</td></tr>
+						<tr><td>Pair, male on left</td><td>5 seconds</td></tr>
+					</tbody>
+				</table>
+			</section>
 		</div>
 
 		<!-- Clickpoints Overlay -->
@@ -189,64 +252,5 @@
 			<iframe id="preview" class="preview_frame"></iframe>
 		</div>
 
-		<!-- Loading Overlay -->
-		<div id="load_cover" class="load_cover">
-			<p>
-				Welcome to the Assistant Kernel Version 1.0.0<br>
-				Logging in as anonymous user...<br>
-				<br>
-				Loading data structures...<br>
-				Loading wikidata...<br>
-				Loading keydata...<br>
-				Loading user preferences...<br>
-				Loading interface...<br>
-				Loading stylesheets...<br>
-				Loading functions...<br>
-				<br>
-				<span id="load_welcome">Welcome user!</span><br>
-				<br>
-				<br>
-				<br>
-				<span id="load_message">
-					<span id="load_remember">
-						- - - - - [First Visit Detected] - - - - -<br>
-						<br>
-						Welcome!<br>
-						<br>
-						This website is a series of guides and<br>
-						tools dedicated to helping players<br>
-						attempting to beat Welcome to the Game 3.<br>
-						If necessary, a tutorial for how the tools<br>
-						work can be found under the Info header.<br>
-						<br>
-						- - - - - - [Content Warning!] - - - - - -<br>
-						<br>
-						This website uses extracted websites from<br>
-						Welcome to the Game 3 in one of the<br>
-						features provided, please keep in mind<br>
-						that the content from this game may be<br>
-						disturbing to some individuals. User<br>
-						discretion is advised.<br>
-						<br>
-						<span onclick="load_handle(0,1)">&gt;&gt; Remember Me <span id="toggle_remember">☐</span></span><br>
-						<br>
-						<span onclick="load_handle(1,1)">&gt;&gt; I understand</span>
-					</span>
-				</span>
-				<noscript>
-				- - - - - - [Important Notice] - - - - - -<br>
-				<br>
-				This website is one that largely relies on<br>
-				javascript functions to display and handle<br>
-				data necessary for many of the features to<br>
-				work properly.<br>
-				<br>
-				If you wish to use the site, please enable<br>
-				javascript.<br>
-				<br>
-				- - - - - - - -[End Notice]- - - - - - - -
-				</noscript>
-			</p>
-		</div>
 	</body>
 </html>

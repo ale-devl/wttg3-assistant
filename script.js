@@ -70,29 +70,6 @@ var wikidata = {
 	"World Wide Workers":    {id:228,sub:["about","submit"]},
 	"You There?":            {id:231, times:":30 - :44", forceHack: [0, "87%"]}
 };
-var tips = [
-		"Remember to check in the source code",
-		"Dont forget to hover your mouse over entire sites",
-		"Remember to practice your hacking skills",
-		"The game includes a lot of dead websites that will never be open",
-		"If possible, you should save up for key cue",
-		"Remember to grab the flashlight",
-		"Dont forget the Breather",
-		"Say hi to Lucas for me",
-		"The Noir are not good at hugs",
-		"HAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAH",
-		"Dont look behind you",
-		"Dont worry about the noises behind you, they mean nothing... probably",
-		"Error 418 I am a teapot",
-		"Have you heard of WTTG2+",
-		"You can use this tool to save and organize your keys",
-		"Motion Sensors can be used to catch a killer off guard",
-		"Dont let Noir catch you off guard",
-		"Tick Tock",
-		"MERRAMUN",
-		"Watch out for the cars"
-	];
-
 //==========================================================================Variable Data
 var data = {
 	"general":{
@@ -112,9 +89,6 @@ var data = {
 		"sites":[null,{},{},{}],
 		"keys":[null,0,0,0],
 		"total":[null,2,3,3]},
-	"load":{
-		"index":0,
-		"state":0},
 	"popup":{
 		"wifi":{"active":0,"reference":undefined},
 		"notes":{"active":0,"reference":undefined}}
@@ -149,13 +123,8 @@ function wiki_input() {//Updates wiki data from import field
 		data.wiki.sites[data.wiki.current] = d;
 		data.wiki.keys[data.wiki.current] = 0;
 		wiki_update();
+		save_state();
 	}
-}
-
-function wiki_demo() {//Forces update of wiki data
-	click();
-	data.wiki.sites[data.wiki.current] = { "Bizzare Propagation": [ [ 0, 0, 0, 0 ] ], "Blushing Brides": [ [ 0, 0, 0, 0 ], [ 0, 0, 0, 0 ], [ 0, 0, 0, 0 ] ], "FindLove": [ [ 0, 0, 0, 0 ] ], "Forever Friend": [ [ 0, 0, 0, 0 ], [ 0, 0, 0, 0 ] ], "Forsaken Gifts": [ [ 0, 0, 0, 0 ], [ 0, 0, 0, 0 ], [ 0, 0, 0, 0 ] ] };
-	wiki_update();
 }
 
 function wiki_update(m) {//Updates the currently displayed data, also handles current page
@@ -166,6 +135,7 @@ function wiki_update(m) {//Updates the currently displayed data, also handles cu
 		data.wiki.current = ((data.wiki.current + m + 2) % 3) + 1;
 		document.getElementById("wiki_title").innerHTML = data.wiki.names[data.wiki.current - 1];
 		wiki_updatekeys();
+		save_state();
 	}
 
 	var s = Object.keys(data.wiki.sites[data.wiki.current]).sort(function(a,b){return a.localeCompare(b,undefined,{sensitivity:'base'});});
@@ -268,6 +238,7 @@ function wiki_editortoggle(e,n) {//Toggle or remove necessary websites
 		break;
 	}
 	//console.log(data.wiki.template,n,data.wiki.template[n])
+	save_state();
 }
 
 function wiki_erase() {//Removes all content from the wiki table
@@ -281,6 +252,7 @@ function wiki_notetoggle(e,n,i,b) {//Toggle color of note taking buttons
 	data.wiki.sites[data.wiki.current][n][i][b] ^= 1;
 	//console.log(data.wiki.sites[data.wiki.current][n][i][b])
 	e.classList.toggle("secondary");
+	save_state();
 }
 
 function wiki_updatekeys() {//Updates the remaining keys count
@@ -321,6 +293,7 @@ function note_input() {//Attempts to find and save keys within the note block's 
 	if (data.popup.notes.active == 1) {
 		data.popup.notes.reference.document.getElementById("content").innerHTML = content;
 	}
+	save_state();
 }
 
 //=============================
@@ -335,24 +308,12 @@ function info_update(i) {//Change info page
 
 function setcolor(i,c) {//Updates the site color configuration in memory
 	localStorage.setItem(`color${i}`,c);
-	document.getElementById("dom_color").innerHTML = `
-		body {color:hsl(${localStorage.getItem('color0')},100%,50%)} 
-		.simplebar-scrollbar::before {background-color:hsl(${localStorage.getItem('color0')},100%,50%)} 
-		.child {color:hsl(${localStorage.getItem('color0')},100%,30%)} 
-		.secondary {color:hsl(${localStorage.getItem('color1')},100%,50%)} 
-		.disabled {color:hsl(${localStorage.getItem('color1')},100%,20%)}
-		.force_hack_site {color:hsl(${localStorage.getItem('color2')},100%,50%)}
-	`;
+	document.getElementById("dom_color").innerHTML = `:root {--primary-color:${localStorage.getItem('color0')};--secondary-color:${localStorage.getItem('color1')};--forcehack-color:${localStorage.getItem('color2')}}`;
 }
 
 //=============================
 //=============================Other
 //=============================
-function tipupdate() {//Updates the displayed tip
-	document.getElementById("tips").innerHTML = '[Tip] ' + tips[Math.floor(Math.random() * tips.length)];
-}
-setInterval(tipupdate,10000);
-
 function setup() {//Prepares website lists and appearance
 	try {
 		//Generate info block buttons
@@ -369,13 +330,14 @@ function setup() {//Prepares website lists and appearance
 		//Prepare and define website colors
 		if (localStorage.getItem('color0') == undefined) {localStorage.setItem('color0',120);}
 		if (localStorage.getItem('color1') == undefined) {localStorage.setItem('color1',0);}
+		if (localStorage.getItem('color2') == undefined) {localStorage.setItem('color2',190);}
 		document.getElementById("setting_colorprimary").value = localStorage.getItem('color0');
 		document.getElementById("setting_colorsecondary").value = localStorage.getItem('color1');
-		document.getElementById("dom_color").innerHTML = `:root {--primary-color:${localStorage.getItem('color0')};--secondary-color:${localStorage.getItem('color1')}}`;
+		document.getElementById("setting_colorforcehack").value = localStorage.getItem('color2');
+		document.getElementById("dom_color").innerHTML = `:root {--primary-color:${localStorage.getItem('color0')};--secondary-color:${localStorage.getItem('color1')};--forcehack-color:${localStorage.getItem('color2')}}`;
 
-		//Prepare and display website load messages
-		document.getElementById("load_welcome").style.display = "block";
-		setTimeout(()=>{load_handle(2)},500);
+		//Restore the latest playthrough data
+		if (load_state()) {refresh_ui();}
 
 		//Query the current github commit and add it to site version
 		var x = new XMLHttpRequest();
@@ -388,46 +350,8 @@ function setup() {//Prepares website lists and appearance
 		x.open("GET","https://api.github.com/repos/otrexdev/wttg3-assistant/commits?per_page=1",true);
 		x.send();
 	} catch(e) {
-		document.getElementById("load_message").innerText = "[Startup Error] " + e;
 		console.error("[Startup Error] " + e);
 	}
-}
-
-function load_handle(a,i) {
-	var popups = ["remember","remember"], type = popups[i];
-	switch (a) {
-		case 0:
-			document.getElementById("toggle_" + type).innerText = (data.load.state ^= 1) ? "☑":"☐";
-			break;
-		case 1:
-			localStorage.setItem(type, data.load.state);
-			data.load.state = 0;
-			data.load.index++;
-		case 2:
-			document.getElementById("load_message").style.display = "block";
-			popups.forEach((v,i)=>{
-				if (data.load.index <= i && (+localStorage.getItem(v) || a == 1)) {
-					a = 0;
-					data.load.index++;
-					document.getElementById("load_" + v)?.remove();
-				};
-				if (data.load.index >= popups.length) {
-					document.getElementById("load_cover").remove();
-				};
-			});
-	};
-}
-
-function reset() {//Reset all run data in the assistant
-	data = {...data,...{
-		"wiki":{...data.wiki,...{
-			"sites":[null,{},{},{}],
-			"keys":[null,0,0,0],
-			"total":[null,2,3,3]}},
-		"note":{...data.note,...{
-			"keys":full_array(9,"????????????")}}
-		}
-	};
 }
 
 function click() {//Plays the click sound
@@ -441,8 +365,7 @@ function click() {//Plays the click sound
 
 const SAVE_KEY = "wttg3_savedata";
 
-function save_state() {//manually saves wiki, note, wifi and tenant data to localStorage
-	click();
+function save_state() {//Automatically saves all playthrough data to localStorage
 	var snapshot = {
 		"version":1,
 		"wiki":{
@@ -455,7 +378,6 @@ function save_state() {//manually saves wiki, note, wifi and tenant data to loca
 			"content":data.note.content}
 	};
 	localStorage.setItem(SAVE_KEY,JSON.stringify(snapshot));
-	save_status("Progress saved!");
 }
 
 function load_state() {//restores wiki, note, wifi and tenant data from localStorage. returns true on success
@@ -463,7 +385,12 @@ function load_state() {//restores wiki, note, wifi and tenant data from localSto
 	if (!raw) {return false;}
 	try {
 		var s = JSON.parse(raw);
-		if (s.version !== 1) {return false;}
+		var validWiki = s.wiki && [1,2,3].includes(s.wiki.current) &&
+			Array.isArray(s.wiki.sites) && s.wiki.sites.length == 4 &&
+			Array.isArray(s.wiki.keys) && s.wiki.keys.length == 4 &&
+			Array.isArray(s.wiki.total) && s.wiki.total.length == 4;
+		var validNote = s.note && Array.isArray(s.note.keys) && s.note.keys.length == 8 && typeof s.note.content == "string";
+		if (s.version !== 1 || !validWiki || !validNote) {return false;}
 		data.wiki.current = s.wiki.current;
 		data.wiki.sites = s.wiki.sites;
 		data.wiki.keys = s.wiki.keys;
@@ -477,36 +404,21 @@ function load_state() {//restores wiki, note, wifi and tenant data from localSto
 	}
 }
 
-function ui_load_state() {//button handler: loads saved data and repaints the UI
+function reset_playthrough() {//Clears playthrough data while preserving preferences
 	click();
-	if (!load_state()) {
-		save_status("No saved progress found.");
-		return;
-	}
-	refresh_ui();
-	save_status("Progress loaded!");
-}
-
-function clear_state() {//button handler: wipes saved data and resets in-memory run data (colors/popups untouched)
-	click();
-	if (!confirm("Clear all saved progress? This cannot be undone.")) {return;}
+	if (!confirm("Start a new playthrough? All wiki progress and notes will be cleared.")) {return;}
 	localStorage.removeItem(SAVE_KEY);
 	data.wiki.current = 1;
 	data.wiki.sites = [null,{},{},{}];
 	data.wiki.keys = [null,0,0,0];
 	data.wiki.total = [null,2,3,3];
-	data.note.keys = full_array(8,"????????????");
+	data.note.keys = full_array(8,"????");
 	data.note.content = "";
 	refresh_ui();
-	save_status("Saved progress cleared.");
-}
-
-function save_status(msg) {//updates the small status line under the save/load/clear buttons
-	document.getElementById("save_status").innerText = msg;
 }
 
 function refresh_ui() {//repaints all DOM elements to reflect the current `data` state
-	document.getElementById("wiki_title").innerHTML = "Wiki " + "III".slice(0,data.wiki.current);
+	document.getElementById("wiki_title").innerHTML = data.wiki.names[data.wiki.current - 1];
 	wiki_updatekeys();
 	wiki_update();
 
