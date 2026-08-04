@@ -411,11 +411,6 @@ text-align:right;
 white-space:nowrap;
 }
 
-.miner_tiers small {
-font-size:12px;
-font-weight:normal;
-}
-
 .noir_block {
 flex:1 1 360px;
 }

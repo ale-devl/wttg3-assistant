@@ -15,7 +15,8 @@ The Welcome to the Game 3 Assistant is a tool for learning and beating the game 
 - Improved the lower reference layout to make better use of wide displays while remaining responsive on smaller screens.
 - Fixed persistence of the Force Hack site color preference.
 
-**Please click the following link if you want to use the assistant. [Open the Assistant](https://otrexdev.github.io/wttg3-assistant/)**  
+**Please click the following link if you want to use the assistant. [Open the Assistant](https://ale-devl.github.io/wttg3-assistant/)**
+
 **If you wish to get in touch for bugs, questions, or feature suggestions please open an issue.**
 
 _The photos and audio in this repository are property of Reflect Studios and sourced from the game "Welcome to The Game 3"._
