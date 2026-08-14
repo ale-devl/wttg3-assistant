@@ -306,6 +306,24 @@ function info_update(i) {//Change info page
 	data.info.current = i;
 }
 
+function info_toggle(open) {//Shows or hides the Info popover
+	click();
+	var overlay = document.getElementById("info_overlay");
+	overlay.classList.toggle("active",open);
+	overlay.setAttribute("aria-hidden",(!open).toString());
+	document.body.classList.toggle("noscroll",open);
+}
+
+function info_backdrop(event) {//Closes Info when its backdrop is clicked
+	if (event.target.id == "info_overlay") {info_toggle(false);}
+}
+
+window.addEventListener("keydown",function(event) {
+	if (event.key == "Escape" && document.getElementById("info_overlay")?.classList.contains("active")) {
+		info_toggle(false);
+	}
+});
+
 function setcolor(i,c) {//Updates the site color configuration in memory
 	localStorage.setItem(`color${i}`,c);
 	document.getElementById("dom_color").innerHTML = `:root {--primary-color:${localStorage.getItem('color0')};--secondary-color:${localStorage.getItem('color1')};--forcehack-color:${localStorage.getItem('color2')}}`;

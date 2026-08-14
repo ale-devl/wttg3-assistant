@@ -132,6 +132,32 @@ vertical-align:middle;
 width:530px;
 }
 
+.main_sections {
+align-items:center;
+display:flex;
+flex-wrap:wrap;
+gap:20px;
+justify-content:center;
+margin:10px auto;
+max-width:1760px;
+width:calc(100% - 20px);
+}
+
+.main_sections .block_main {
+margin:0;
+width:auto;
+}
+
+.wiki_block {
+flex:0 0 530px;
+}
+
+.notepad_block {
+flex:1 1 530px;
+max-width:1130px;
+min-width:530px;
+}
+
 .block_list {
 border-bottom:1px solid;
 border-top:1px solid;
@@ -321,6 +347,11 @@ transform:translate(-50%,0);
 width:500px;
 }
 
+.notepad_block .note_input {
+box-sizing:border-box;
+width:calc(100% - 40px);
+}
+
 .note_keydata {
 bottom:20px;
 font-family:Consolas,monaco,monospace;
@@ -333,6 +364,51 @@ width:100%;
 }
 
 /* Info formatting */
+
+.info_open_button {
+background-color:#000;
+padding:7px 12px;
+position:fixed;
+right:12px;
+top:12px;
+z-index:3;
+}
+
+.info_overlay {
+align-items:center;
+background-color:rgba(0,0,0,0.85);
+box-sizing:border-box;
+display:flex;
+inset:0;
+justify-content:center;
+opacity:0;
+overflow:auto;
+padding:20px;
+pointer-events:none;
+position:fixed;
+transition:opacity 0.15s ease;
+z-index:6;
+}
+
+.info_overlay.active {
+opacity:1;
+pointer-events:auto;
+}
+
+.info_block {
+flex:0 0 auto;
+margin:auto;
+}
+
+.info_close_button {
+font-size:22px;
+height:32px;
+position:absolute;
+right:10px;
+top:8px;
+width:32px;
+z-index:1;
+}
 
 summary {
 user-select:none;
@@ -354,6 +430,17 @@ display:none;
 .help_photo {
 height:20px;
 width:20px;
+}
+
+@media (max-width:650px) {
+.main_sections {
+width:100%;
+}
+
+.main_sections .block_main {
+flex-basis:calc(100% - 40px);
+min-width:0;
+}
 }
 
 /* Game reference formatting */
