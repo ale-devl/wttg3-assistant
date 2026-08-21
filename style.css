@@ -365,13 +365,18 @@ width:100%;
 
 /* Info formatting */
 
-.info_open_button {
-background-color:#000;
-padding:7px 12px;
+.top_actions {
+display:flex;
+gap:8px;
 position:fixed;
 right:12px;
 top:12px;
 z-index:3;
+}
+
+.top_actions button {
+background-color:#000;
+padding:7px 12px;
 }
 
 .info_overlay {

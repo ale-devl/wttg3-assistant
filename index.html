@@ -56,7 +56,10 @@
 	</head>
 	<body onload="setup()">
 		<p id="version" class="version"><i>WTTG3 Assistant Version 1.3.0</i></p>
-		<button type="button" class="info_open_button" onclick="info_toggle(true)"><i class="icon-info-circle"></i> Info</button>
+		<div class="top_actions">
+			<button type="button" onclick="reset_playthrough()">Start New Playthrough</button>
+			<button type="button" class="info_open_button" onclick="info_toggle(true)"><i class="icon-info-circle"></i> Info</button>
+		</div>
 
 		<div class="main_sections">
 		<!-- Wiki Data Block -->
@@ -148,8 +151,7 @@
 					<div title="Save Data" icon="icon-save">
 						<h1>Save Data</h1>
 						<p>Your wiki progress and notes are saved automatically whenever they change.</p>
-						<p>Starting a new playthrough clears that progress but keeps your color preferences.</p>
-						<button onclick="reset_playthrough()">Start New Playthrough</button>
+						<p>The Start New Playthrough control clears that progress but keeps your color preferences.</p>
 					</div>
 					<div title="Force Hacks" icon="icon-circle">
 						<h1>Force Hacks</h1>
