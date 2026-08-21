@@ -169,8 +169,8 @@ function wiki_update(m) {//Updates the currently displayed data, also handles cu
 		if (e == undefined) {
 			a = t.insertRow(-1);
 			b = a.insertCell(0);
-			c = a.insertCell(1);
-			d = a.insertCell(2);
+			d = a.insertCell(1);
+			c = a.insertCell(2);
 			b.innerHTML = n;
 			c.innerHTML = `<i class="secondary">Dead Site</i>`;
 			d.innerHTML = `<div class="wiki_notewrapper"><button class="disabled"><i class="icon-mouse-pointer"></i></button> <button class="disabled"><i class="icon-search"></i></button><button class="disabled"><i class="icon-search-plus"></i></button><button class="disabled"><i class="icon-key"></i></button><button class="disabled"><i class="icon-chain"></i></button></div>`;
@@ -184,8 +184,8 @@ function wiki_update(m) {//Updates the currently displayed data, also handles cu
 			//console.log(h, n,i,i[h])
 			a = t.insertRow(-1);
 			b = a.insertCell(0);
-			c = a.insertCell(1);
-			d = a.insertCell(2);
+			d = a.insertCell(1);
+			c = a.insertCell(2);
 			b.innerHTML = (h != 0) ? (((h + 1 == g) ? '⠀└─ ':'⠀├─ ') + e.sub[h - 1]):n;
 			c.innerHTML = (h != 0) ? ('<i class="child">⠀Subpage</i>'):((e.times == undefined) ? 'Always Available':e.times);
 			if(forceHackData != undefined){
@@ -215,8 +215,8 @@ function wiki_editor() {//Replaces currently displayed data with website editor
 	l.forEach(function(n){
 		var a = t.insertRow(-1);
 		var b = a.insertCell(0);
-		var c = a.insertCell(1);
-		var d = a.insertCell(2);
+		var d = a.insertCell(1);
+		var c = a.insertCell(2);
 		a.id = `editor_${n}`;
 		b.innerHTML = n;
 		c.innerHTML = (o[n] == 1) ? '<i class="secondary">Dead Site</i>':'Working Site';
@@ -266,8 +266,11 @@ function wiki_notetoggle(e,n,i,b) {//Toggle color of note taking buttons
 	data.wiki.sites[data.wiki.current][n][i][b] = Number(activating);
 	//console.log(data.wiki.sites[data.wiki.current][n][i][b])
 	e.classList.toggle("secondary");
-	if (activating && b == 2) {note_addsite("encrypted",wiki_notename(n,i));}
-	if (activating && b == 3) {note_addsite("files",wiki_notename(n,i));}
+	if (b == 2 || b == 3) {
+		var section = (b == 2) ? "encrypted":"files";
+		var page = wiki_notename(n,i);
+		if (activating) {note_addsite(section,page);} else {note_removesite(section,page);}
+	}
 	save_state();
 }
 
@@ -353,6 +356,17 @@ function note_addsite(section,site) {//Adds one unique site or subpage name for 
 	var editor = document.querySelector(`[data-note-section="${section}"]`);
 	if (note_hassite(section,site)) {return;}
 	editor.value += ((editor.value.length > 0 && !editor.value.endsWith("\n")) ? "\n":"") + site;
+	note_input();
+}
+
+function note_removesite(section,site) {//Removes only an untouched auto-added line
+	var editor = document.querySelector(`[data-note-section="${section}"]`);
+	var target = site.trim().toLocaleLowerCase();
+	var lines = editor.value.split(/\r?\n/);
+	var index = lines.findIndex(function(line) {return line.trim().toLocaleLowerCase() == target;});
+	if (index == -1) {return;}
+	lines.splice(index,1);
+	editor.value = lines.join("\n");
 	note_input();
 }
 

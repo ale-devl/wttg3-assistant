@@ -288,7 +288,7 @@ align-items:center;
 justify-content:space-between;
 }
 
-.wiki_data td:nth-child(3) {
+.wiki_data td:nth-child(2) {
 text-align:right;
 }
 
