@@ -9,7 +9,7 @@ The Welcome to the Game 3 Assistant is a tool for learning and beating the game 
 - Added VM Grid mining-rate references for Tier 1, Tier 2, and the currently known Tier 3 nodes.
 - Added a quick-reference guide for handling solo and paired Noir encounters.
 - Added automatic local saving for wiki progress, markers, navigation, and notes.
-- Added a gameplay-focused notes scaffold for keys, A.C.R.S. contacts, Fetch loot, drops, and scratch notes.
+- Added separated copy/paste note boxes for meth, files, wikis, encrypted and decrypted keys, and general notes.
 - Added automatic progress restoration when the assistant opens.
 - Added a **Start New Playthrough** action that clears run progress while preserving color preferences.
 - Streamlined the interface by removing rotating tips, the wiki demo and refresh warning, and the decorative loading and first-visit screens.

@@ -96,10 +96,35 @@
 
 		<!-- Notepad Block -->
 		<div class="block_main notepad_block">
-			<p class="version"><i>Notepad Block Version 1.2.0</i></p>
+			<p class="version"><i>Notepad Block Version 1.3.0</i></p>
 			<h1 style="margin: 10px 0 0 0">Notes</h1>
-			<p style="margin: 0 0 0 0;"><i>Replace .... with decrypted key fragments; recognized fragments compile automatically.</i></p>
-			<textarea oninput="note_input()" class="note_input" id="note_input"></textarea>
+			<p style="margin: 0 0 0 0;"><i>Paste game data directly into each section; decrypted keys compile automatically.</i></p>
+			<div class="note_sections">
+				<label class="note_section">
+					<span>Meth</span>
+					<textarea oninput="note_input()" data-note-section="meth" aria-label="Meth notes"></textarea>
+				</label>
+				<label class="note_section">
+					<span>Files</span>
+					<textarea oninput="note_input()" data-note-section="files" aria-label="File notes"></textarea>
+				</label>
+				<label class="note_section">
+					<span>Wikis</span>
+					<textarea oninput="note_input()" data-note-section="wikis" aria-label="Wiki notes"></textarea>
+				</label>
+				<label class="note_section note_key_section">
+					<span>Encrypted Keys</span>
+					<textarea oninput="note_input()" data-note-section="encrypted" aria-label="Encrypted key notes"></textarea>
+				</label>
+				<label class="note_section note_key_section">
+					<span>Decrypted Keys</span>
+					<textarea oninput="note_input()" data-note-section="decrypted" aria-label="Decrypted key notes"></textarea>
+				</label>
+				<label class="note_section note_general">
+					<span>General Notes</span>
+					<textarea oninput="note_input()" data-note-section="general" aria-label="General notes"></textarea>
+				</label>
+			</div>
 			<p id="note_keyoutput" class="note_keydata"><b>Key Data</b><br>
 				????????????????????????????????
 			</p>

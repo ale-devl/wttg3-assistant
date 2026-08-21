@@ -71,34 +71,17 @@ var wikidata = {
 	"You There?":            {id:231, times:":30 - :44", forceHack: [0, "87%"]}
 };
 //==========================================================================Variable Data
-const NOTES_TEMPLATE = `NEXT
-- [ ] _______________________________________________
+const NOTES_TEMPLATE = `Meth:
 
-KEYS
-1 - .... | hash: __________ | site: __________ | decryptor/cost: __________
-2 - .... | hash: __________ | site: __________ | decryptor/cost: __________
-3 - .... | hash: __________ | site: __________ | decryptor/cost: __________
-4 - .... | hash: __________ | site: __________ | decryptor/cost: __________
-5 - .... | hash: __________ | site: __________ | decryptor/cost: __________
-6 - .... | hash: __________ | site: __________ | decryptor/cost: __________
-7 - .... | hash: __________ | site: __________ | decryptor/cost: __________
-8 - .... | hash: __________ | site: __________ | decryptor/cost: __________
+Files
 
-A.C.R.S. / SALES
-- [ ] user: __________ | wants: __________ | reward/cost: _____ | pinged: no
-- [ ] user: __________ | wants: __________ | reward/cost: _____ | pinged: no
+Wikis
 
-FETCH / LOOT
-- [ ] site/page: __________ | link/file: __________
-      buyer: __________ | converted/delivered: __________
+Keys
+Encrypted
 
-DROPS / STASH
-- Meth: _____________________________________________
-- Packages: _________________________________________
-- Other: ____________________________________________
-
-SCRATCH
--`;
+Decrypted
+`;
 
 var data = {
 	"general":{
@@ -313,7 +296,7 @@ function wiki_previewupdate(i) {//Updates and displays the key clickpoints popup
 //=============================Note Functions
 //=============================
 function note_input() {//Attempts to find and save keys within the note block's data
-	var content = document.getElementById("note_input").value;
+	var content = note_serialize();
 	data.note.content = content;
 	data.note.keys = full_array(8,"????");
 	var keyPattern = /([1-8]) - (\w{4})(?= |\r?\n|$)/g;
@@ -327,6 +310,34 @@ function note_input() {//Attempts to find and save keys within the note block's 
 		data.popup.notes.reference.document.getElementById("content").innerHTML = content;
 	}
 	save_state();
+}
+
+function note_serialize() {//Combines the section editors into the original plain-text save format
+	var value = function(section) {
+		return document.querySelector(`[data-note-section="${section}"]`).value;
+	};
+	return `Meth:\n${value("meth")}\n\nFiles\n${value("files")}\n\nWikis\n${value("wikis")}\n\nKeys\nEncrypted\n${value("encrypted")}\n\nDecrypted\n${value("decrypted")}\n\nGeneral Notes\n${value("general")}`.replace(/\s+$/g,"");
+}
+
+function note_populate(content) {//Loads saved plain-text notes into their matching section editors
+	var sections = {"meth":[],"files":[],"wikis":[],"encrypted":[],"decrypted":[],"general":[]};
+	var current = "general";
+	content.split(/\r?\n/).forEach(function(line) {
+		var heading = line.trim();
+		if (heading == "Meth:") {current = "meth";return;}
+		if (heading == "Files") {current = "files";return;}
+		if (heading == "Wikis") {current = "wikis";return;}
+		if (heading == "Keys") {return;}
+		if (heading == "Encrypted") {current = "encrypted";return;}
+		if (heading == "Decrypted") {current = "decrypted";return;}
+		if (heading == "General Notes") {current = "general";return;}
+		sections[current].push(line);
+	});
+	Object.keys(sections).forEach(function(section) {
+		while (sections[section][0] === "") {sections[section].shift();}
+		while (sections[section][sections[section].length - 1] === "") {sections[section].pop();}
+		document.querySelector(`[data-note-section="${section}"]`).value = sections[section].join("\n");
+	});
 }
 
 //=============================
@@ -474,6 +485,6 @@ function refresh_ui() {//repaints all DOM elements to reflect the current `data`
 	wiki_updatekeys();
 	wiki_update();
 
-	document.getElementById("note_input").value = data.note.content;
+	note_populate(data.note.content);
 	note_input();
 }
