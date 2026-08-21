@@ -153,6 +153,7 @@ flex:0 0 530px;
 }
 
 .notepad_block {
+container-type:inline-size;
 flex:1 1 530px;
 max-width:1130px;
 min-width:530px;
@@ -297,9 +298,9 @@ text-align:right;
 .wiki_columns th:nth-child(2),
 .wiki_columns td:nth-child(2) {width:21%;}
 .wiki_columns th:nth-child(3),
-.wiki_columns td:nth-child(3) {width:33%;}
+.wiki_columns td:nth-child(3) {width:27%;}
 .wiki_columns th:nth-child(4),
-.wiki_columns td:nth-child(4) {width:16%;}
+.wiki_columns td:nth-child(4) {width:22%;}
 
 .wiki_data {
 border-bottom:1px solid;
@@ -335,6 +336,12 @@ justify-content:flex-end;
 font-size:11px;
 height:25px;
 width:34px;
+}
+
+.wiki_addwrapper > button.note_added {
+border-style:solid;
+cursor:default;
+opacity:0.45;
 }
 
 .wiki_editorwrapper > button {
@@ -471,37 +478,83 @@ min-width:0;
 }
 
 .meth_spawn_title {
-font-size:11px;
+font-size:10px;
 font-weight:bold;
-margin-bottom:4px;
+letter-spacing:0.06em;
+margin-bottom:3px;
+text-transform:uppercase;
 }
 
-.meth_spawn_list {
+.meth_spawn_groups {
 display:grid;
-font-size:11px;
-gap:2px 10px;
-grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+flex:1;
+gap:6px;
+grid-template-columns:minmax(0,0.9fr) minmax(0,1fr) minmax(0,1.35fr);
 min-height:0;
-overflow-y:auto;
 }
 
-.meth_spawn_list label,
-.meth_other {
+.meth_spawn_group {
+border:1px solid currentColor;
+margin:0;
+min-width:0;
+overflow-y:auto;
+padding:2px 5px 4px;
+}
+
+.meth_spawn_group legend {
+font-size:10px;
+font-weight:bold;
+padding:0 3px;
+text-transform:uppercase;
+}
+
+.meth_spawn_group label {
 align-items:center;
 display:flex;
+font-size:10px;
 gap:4px;
+line-height:1.25;
+padding:1px 0;
+}
+
+.meth_spawn_group input {
+flex:0 0 auto;
+margin:0;
+}
+
+.meth_spawn_group input:checked + span {
+color:#72ff72;
+font-weight:bold;
+}
+
+.meth_room_grid {
+display:grid;
+gap:0 6px;
+grid-template-columns:repeat(2,minmax(0,1fr));
 }
 
 .meth_other {
+align-items:center;
+background-color:rgba(0,0,0,0.25);
+border:1px solid currentColor;
+display:flex;
 font-size:11px;
-margin-top:5px;
+gap:6px;
+margin-top:4px;
+padding:2px 5px;
+}
+
+.meth_other span {
+font-weight:bold;
+white-space:nowrap;
 }
 
 .meth_other input {
-background-color:rgba(0,0,0,0.25);
-border:1px solid currentColor;
+background-color:transparent;
+border:0;
 color:inherit;
 flex:1;
+font:inherit;
 min-width:0;
 }
 
@@ -594,6 +647,33 @@ height:20px;
 width:20px;
 }
 
+@container (max-width:700px) {
+.note_sections {
+grid-template-rows:none;
+}
+
+.note_meth {
+min-height:220px;
+}
+
+.meth_tracker {
+gap:6px;
+grid-template-columns:1fr;
+}
+
+.meth_possession {
+flex-direction:row;
+font-size:15px;
+min-height:42px;
+padding:4px 8px;
+}
+
+.meth_possession input {
+height:20px;
+width:20px;
+}
+}
+
 @media (max-width:650px) {
 .main_sections {
 width:100%;
@@ -621,10 +701,14 @@ min-height:120px;
 }
 
 .note_meth {
-min-height:330px;
+min-height:430px;
 }
 
 .meth_tracker {
+grid-template-columns:1fr;
+}
+
+.meth_spawn_groups {
 grid-template-columns:1fr;
 }
 }

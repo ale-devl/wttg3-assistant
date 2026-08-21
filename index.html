@@ -46,16 +46,16 @@
 		<link rel="manifest" href="manifest.json">
 		<link rel="stylesheet" href="Assets/simplebar-5.3.6/simplebar.css">
 		<link rel="stylesheet" href="Assets/icomoon/style.css">
-		<link rel="stylesheet" href="style.css">
+		<link rel="stylesheet" href="style.css?v=1.4.1">
 		<link rel="apple-touch-icon" href="Assets/icon-192.png">
 		<link rel="icon" href="Assets/favicon.ico" type="image/x-icon">
-		<script src="script.js"></script>
+		<script src="script.js?v=1.4.1"></script>
 		<script src="Assets/simplebar-5.3.6/simplebar.min.js"></script>
 		<style id="dom_color">body {color:hsl(120,100%,50%)} .simplebar-scrollbar::before {background-color:hsl(120,100%,50%)} .child {color:hsl(120,100%,30%)} .secondary {color:hsl(0,100%,50%)} .disabled {color:hsl(0,100%,20%)}
 		</style>
 	</head>
 	<body onload="setup()">
-		<p id="version" class="version"><i>WTTG3 Assistant Version 1.4.0</i></p>
+		<p id="version" class="version"><i>WTTG3 Assistant Version 1.4.1</i></p>
 		<div class="top_actions">
 			<button type="button" onclick="reset_playthrough()">Start New Playthrough</button>
 			<button type="button" class="info_open_button" onclick="info_toggle(true)"><i class="icon-info-circle"></i> Info</button>
@@ -64,7 +64,7 @@
 		<div class="main_sections">
 		<!-- Wiki Data Block -->
 		<div class="block_main wiki_block">
-			<p class="version"><i>Wiki Block Version 1.4.0</i></p>
+			<p class="version"><i>Wiki Block Version 1.4.1</i></p>
 			<div class="wiki_headerwrapper">
 				<div>
 					<button onclick="wiki_update(-1)" style="width:38px;height:38px;"><i class="icon-arrow-left icon-2x"></i></button>
@@ -88,7 +88,6 @@
 					<tr><td colspan="4">[ <i class="icon-search"></i> ] Searched Manually</td></tr>
 					<tr><td colspan="4">[ <i class="icon-search-plus"></i> ] Searched With Key Cue</td></tr>
 					<tr><td colspan="4">[ <i class="icon-key"></i> ] Key Found Here</td></tr>
-					<tr><td colspan="4">[ <i class="icon-chain"></i> ] Fetch URL Found Here</td></tr>
 					<tr><td colspan="4">[ +<i class="icon-chain"></i> / +<i class="icon-key"></i> ] Add site or subpage to Files / Encrypted Keys</td></tr>
 					<tr><td colspan="4"><p>To get started you can import your websites by copying the website list from a Deep Wiki inside the game into the box above. (If this does not work, you can also manually import using the edit button above.)</p></td></tr>
 				</table>
@@ -97,7 +96,7 @@
 
 		<!-- Notepad Block -->
 		<div class="block_main notepad_block">
-			<p class="version"><i>Notepad Block Version 1.4.0</i></p>
+			<p class="version"><i>Notepad Block Version 1.4.1</i></p>
 			<h1 style="margin: 10px 0 0 0">Notes</h1>
 			<p style="margin: 0 0 0 0;"><i>Paste game data directly into each section; decrypted keys compile automatically.</i></p>
 			<div class="note_sections">
@@ -109,21 +108,32 @@
 							<strong id="meth_status" aria-live="polite">NO METH ON HAND!</strong>
 						</label>
 						<div class="meth_spawn_area">
-							<span class="meth_spawn_title">Known Krystal King spawns (v1.0.6) — check where meth remains</span>
-							<div class="meth_spawn_list">
-								<label><input type="checkbox" data-meth-location="rear_dumpster" data-meth-label="Behind motel: dumpster (electrical side)" onchange="meth_input()"> Behind motel: dumpster (electrical side)</label>
-								<label><input type="checkbox" data-meth-location="rear_toilet" data-meth-label="Behind motel: toilet" onchange="meth_input()"> Behind motel: toilet</label>
-								<label><input type="checkbox" data-meth-location="truck" data-meth-label="Outside: truck behind Room 1" onchange="meth_input()"> Outside: truck behind Room 1</label>
-								<label><input type="checkbox" data-meth-location="blue_car" data-meth-label="Outside: blue car front-left tyre" onchange="meth_input()"> Outside: blue car front-left tyre</label>
-								<label><input type="checkbox" data-meth-location="room_1_sink" data-meth-label="Room 1: bathroom sink" onchange="meth_input()"> Room 1: bathroom sink</label>
-								<label><input type="checkbox" data-meth-location="room_3_clock" data-meth-label="Room 3: alarm clock" onchange="meth_input()"> Room 3: alarm clock</label>
-								<label><input type="checkbox" data-meth-location="room_7_phone" data-meth-label="Room 7: phone" onchange="meth_input()"> Room 7: phone</label>
-								<label><input type="checkbox" data-meth-location="room_7_sink" data-meth-label="Room 7: bathroom sink" onchange="meth_input()"> Room 7: bathroom sink</label>
-								<label><input type="checkbox" data-meth-location="room_9_toilet" data-meth-label="Room 9: bathroom toilet" onchange="meth_input()"> Room 9: bathroom toilet</label>
-								<label><input type="checkbox" data-meth-location="room_9_shelf" data-meth-label="Room 9: shelf above toilet" onchange="meth_input()"> Room 9: shelf above toilet</label>
-								<label><input type="checkbox" data-meth-location="room_11_phone" data-meth-label="Room 11: phone" onchange="meth_input()"> Room 11: phone</label>
+							<span class="meth_spawn_title">Meth remaining at known spawns</span>
+							<div class="meth_spawn_groups">
+								<fieldset class="meth_spawn_group">
+									<legend>Behind motel</legend>
+									<label><input type="checkbox" data-meth-location="rear_dumpster" data-meth-label="Behind motel: dumpster (electrical side)" onchange="meth_input()"><span>Dumpster, electrical side</span></label>
+									<label><input type="checkbox" data-meth-location="rear_toilet" data-meth-label="Behind motel: toilet" onchange="meth_input()"><span>Toilet</span></label>
+								</fieldset>
+								<fieldset class="meth_spawn_group">
+									<legend>Outside</legend>
+									<label><input type="checkbox" data-meth-location="truck" data-meth-label="Outside: truck behind Room 1" onchange="meth_input()"><span>Truck behind Room 1</span></label>
+									<label><input type="checkbox" data-meth-location="blue_car" data-meth-label="Outside: blue car front-left tyre" onchange="meth_input()"><span>Blue car, front-left tyre</span></label>
+								</fieldset>
+								<fieldset class="meth_spawn_group meth_rooms">
+									<legend>Rooms</legend>
+									<div class="meth_room_grid">
+										<label><input type="checkbox" data-meth-location="room_1_sink" data-meth-label="Room 1: bathroom sink" onchange="meth_input()"><span><b>1</b> Sink</span></label>
+										<label><input type="checkbox" data-meth-location="room_3_clock" data-meth-label="Room 3: alarm clock" onchange="meth_input()"><span><b>3</b> Clock</span></label>
+										<label><input type="checkbox" data-meth-location="room_7_phone" data-meth-label="Room 7: phone" onchange="meth_input()"><span><b>7</b> Phone</span></label>
+										<label><input type="checkbox" data-meth-location="room_7_sink" data-meth-label="Room 7: bathroom sink" onchange="meth_input()"><span><b>7</b> Sink</span></label>
+										<label><input type="checkbox" data-meth-location="room_9_toilet" data-meth-label="Room 9: bathroom toilet" onchange="meth_input()"><span><b>9</b> Toilet</span></label>
+										<label><input type="checkbox" data-meth-location="room_9_shelf" data-meth-label="Room 9: shelf above toilet" onchange="meth_input()"><span><b>9</b> Shelf</span></label>
+										<label><input type="checkbox" data-meth-location="room_11_phone" data-meth-label="Room 11: phone" onchange="meth_input()"><span><b>11</b> Phone</span></label>
+									</div>
+								</fieldset>
 							</div>
-							<label class="meth_other"><span>Other:</span><input id="meth_other" type="text" aria-label="Other meth location" oninput="meth_input()"></label>
+							<label class="meth_other"><span>Other location</span><input id="meth_other" type="text" aria-label="Other meth location" oninput="meth_input()"></label>
 						</div>
 					</div>
 				</section>

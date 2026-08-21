@@ -163,7 +163,7 @@ function wiki_update(m) {//Updates the currently displayed data, also handles cu
 	}
 
 	function wiki_appendsite(t,n) {//Take a website name and display the associated data
-		var a,b,c,d,e,f,g,h,i,j,noteName,safeNoteName, forceHackData;
+		var a,b,c,d,e,f,g,h,i,j,noteName,safeNoteName,fileAdded,keyAdded,forceHackData;
 		e = wikidata[n];
 		i = data.wiki.sites[data.wiki.current][n];
 		if (e == undefined) {
@@ -174,7 +174,7 @@ function wiki_update(m) {//Updates the currently displayed data, also handles cu
 			j = a.insertCell(3);
 			b.innerHTML = n;
 			c.innerHTML = `<i class="secondary">Dead Site</i>`;
-			d.innerHTML = `<div class="wiki_notewrapper"><button class="disabled"><i class="icon-mouse-pointer"></i></button> <button class="disabled"><i class="icon-search"></i></button><button class="disabled"><i class="icon-search-plus"></i></button><button class="disabled"><i class="icon-key"></i></button><button class="disabled"><i class="icon-chain"></i></button></div>`;
+			d.innerHTML = `<div class="wiki_notewrapper"><button class="disabled"><i class="icon-mouse-pointer"></i></button> <button class="disabled"><i class="icon-search"></i></button><button class="disabled"><i class="icon-search-plus"></i></button><button class="disabled"><i class="icon-key"></i></button></div>`;
 			j.innerHTML = `<div class="wiki_addwrapper"><button class="disabled" aria-label="File notes unavailable"><i class="icon-chain"></i></button><button class="disabled" aria-label="Key notes unavailable"><i class="icon-key"></i></button></div>`;
 			return;
 		}
@@ -197,10 +197,12 @@ function wiki_update(m) {//Updates the currently displayed data, also handles cu
 					b.innerHTML += ` (${forceHackData[1]} FH)`
 				}
 			}
-			d.innerHTML = `<div class="wiki_notewrapper"><button onclick="wiki_previewupdate(${f + h})"><i class="icon-mouse-pointer"></i></button> <button class="${(i[h][0]) ? "":"secondary"}" onclick="wiki_notetoggle(this,'${n}',${h},0)"><i class="icon-search"></i></button><button class="${(i[h][1]) ? "":"secondary"}" onclick="wiki_notetoggle(this,'${n}',${h},1)"><i class="icon-search-plus"></i></button><button class="${(i[h][2]) ? "":"secondary"}" onclick="wiki_notetoggle(this,'${n}',${h},2)"><i class="icon-key"></i></button><button class="${(i[h][3]) ? "":"secondary"}" onclick="wiki_notetoggle(this,'${n}',${h},3)"><i class="icon-chain"></i></button></div>`;
+			d.innerHTML = `<div class="wiki_notewrapper"><button onclick="wiki_previewupdate(${f + h})"><i class="icon-mouse-pointer"></i></button> <button class="${(i[h][0]) ? "":"secondary"}" onclick="wiki_notetoggle(this,'${n}',${h},0)"><i class="icon-search"></i></button><button class="${(i[h][1]) ? "":"secondary"}" onclick="wiki_notetoggle(this,'${n}',${h},1)"><i class="icon-search-plus"></i></button><button class="${(i[h][2]) ? "":"secondary"}" onclick="wiki_notetoggle(this,'${n}',${h},2)"><i class="icon-key"></i></button></div>`;
 			noteName = n + ((h != 0) ? ":" + e.sub[h - 1]:"");
 			safeNoteName = noteName.replace(/\\/g,"\\\\").replace(/'/g,"\\'");
-			j.innerHTML = `<div class="wiki_addwrapper"><button title="Add file note: ${noteName}" aria-label="Add file note for ${noteName}" onclick="note_addsite('files','${safeNoteName}')">+<i class="icon-chain"></i></button><button title="Add key note: ${noteName}" aria-label="Add key note for ${noteName}" onclick="note_addsite('encrypted','${safeNoteName}')">+<i class="icon-key"></i></button></div>`;
+			fileAdded = note_hassite("files",noteName);
+			keyAdded = note_hassite("encrypted",noteName);
+			j.innerHTML = `<div class="wiki_addwrapper"><button ${(fileAdded) ? 'class="note_added" disabled':`title="Add file note: ${noteName}"`} aria-label="${(fileAdded) ? `${noteName} already in Files`:`Add file note for ${noteName}`}" onclick="note_addsite('files','${safeNoteName}',this)">${(fileAdded) ? "✓":"+"}<i class="icon-chain"></i></button><button ${(keyAdded) ? 'class="note_added" disabled':`title="Add key note: ${noteName}"`} aria-label="${(keyAdded) ? `${noteName} already in Encrypted Keys`:`Add key note for ${noteName}`}" onclick="note_addsite('encrypted','${safeNoteName}',this)">${(keyAdded) ? "✓":"+"}<i class="icon-key"></i></button></div>`;
 		}
 	}
 }
@@ -336,13 +338,39 @@ function meth_update() {//Makes missing meth impossible to overlook
 	status.innerText = data.note.meth.onHand ? "METH ON HAND" : "NO METH ON HAND!";
 }
 
-function note_addsite(section,site) {//Adds a site or subpage name for immediate enrichment
-	click();
+function note_hassite(section,site) {//Checks for a blank or enriched entry without conflating a site with its subpages
 	var editor = document.querySelector(`[data-note-section="${section}"]`);
+	if (editor == null) {return false;}
+	var target = site.trim().toLocaleLowerCase();
+	return editor.value.split(/\r?\n/).some(function(line) {
+		var entry = line.trim().toLocaleLowerCase();
+		if (!entry.startsWith(target)) {return false;}
+		var suffix = entry.slice(target.length);
+		return suffix == "" || /^\s/.test(suffix) || /^[-–—|=]/.test(suffix);
+	});
+}
+
+function note_addsite(section,site,button) {//Adds one unique site or subpage name for immediate enrichment
+	var editor = document.querySelector(`[data-note-section="${section}"]`);
+	if (note_hassite(section,site)) {
+		note_addedbutton(button,section,site);
+		return;
+	}
+	click();
 	editor.value += ((editor.value.length > 0 && !editor.value.endsWith("\n")) ? "\n":"") + site;
+	note_addedbutton(button,section,site);
 	editor.focus();
 	editor.setSelectionRange(editor.value.length,editor.value.length);
 	note_input();
+}
+
+function note_addedbutton(button,section,site) {//Shows that page already has a note entry
+	if (button == null) {return;}
+	button.disabled = true;
+	button.classList.add("note_added");
+	button.removeAttribute("title");
+	button.setAttribute("aria-label",site + " already in " + ((section == "files") ? "Files":"Encrypted Keys"));
+	button.innerHTML = button.innerHTML.replace(/^\+/,"✓");
 }
 
 function note_serialize() {//Combines the section editors into the original plain-text save format
@@ -540,10 +568,10 @@ function reset_playthrough() {//Clears playthrough data while preserving prefere
 }
 
 function refresh_ui() {//repaints all DOM elements to reflect the current `data` state
+	note_populate(data.note.content);
+	note_input();
+
 	document.getElementById("wiki_title").innerHTML = data.wiki.names[data.wiki.current - 1];
 	wiki_updatekeys();
 	wiki_update();
-
-	note_populate(data.note.content);
-	note_input();
 }
