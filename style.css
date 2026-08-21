@@ -287,9 +287,19 @@ align-items:center;
 justify-content:space-between;
 }
 
-.wiki_data td:nth-child(3) {
+.wiki_data td:nth-child(3),
+.wiki_data td:nth-child(4) {
 text-align:right;
 }
+
+.wiki_columns th:nth-child(1),
+.wiki_columns td:nth-child(1) {width:30%;}
+.wiki_columns th:nth-child(2),
+.wiki_columns td:nth-child(2) {width:21%;}
+.wiki_columns th:nth-child(3),
+.wiki_columns td:nth-child(3) {width:33%;}
+.wiki_columns th:nth-child(4),
+.wiki_columns td:nth-child(4) {width:16%;}
 
 .wiki_data {
 border-bottom:1px solid;
@@ -308,12 +318,23 @@ width:530px;
 .wiki_data td {
 padding:0;
 text-align:left;
-width:33%;
 }
 
 .wiki_notewrapper > button {
 height:25px;
 width:30px;
+}
+
+.wiki_addwrapper {
+display:flex;
+gap:3px;
+justify-content:flex-end;
+}
+
+.wiki_addwrapper > button {
+font-size:11px;
+height:25px;
+width:34px;
 }
 
 .wiki_editorwrapper > button {
@@ -341,6 +362,7 @@ bottom:85px;
 display:grid;
 gap:10px;
 grid-template-columns:repeat(6,minmax(0,1fr));
+grid-template-rows:minmax(155px,1.5fr) repeat(3,minmax(85px,1fr));
 left:20px;
 overflow-y:auto;
 position:absolute;
@@ -355,9 +377,9 @@ border:1px solid currentColor;
 box-sizing:border-box;
 display:flex;
 flex-direction:column;
+grid-column:span 3;
 min-height:0;
 padding:8px;
-grid-column:span 2;
 }
 
 .note_section:focus-within {
@@ -379,13 +401,108 @@ box-sizing:border-box;
 flex:1;
 font-family:Consolas,monaco,monospace;
 font-size:14px;
-min-height:68px;
+min-height:45px;
 padding:2px;
 width:100%;
 }
 
 .note_key_section {
 grid-column:span 3;
+}
+
+.note_meth {
+grid-column:1 / -1;
+}
+
+.note_meth.meth_missing {
+border:2px solid #ff3030;
+box-shadow:0 0 12px rgba(255,32,32,0.75);
+}
+
+.meth_tracker {
+display:grid;
+flex:1;
+gap:10px;
+grid-template-columns:180px minmax(0,1fr);
+min-height:0;
+}
+
+.meth_possession {
+align-items:center;
+border:3px solid;
+box-sizing:border-box;
+cursor:pointer;
+display:flex;
+flex-direction:column;
+font-size:17px;
+gap:8px;
+justify-content:center;
+padding:8px;
+text-align:center;
+}
+
+.meth_possession input {
+height:24px;
+width:24px;
+}
+
+.meth_possession.missing {
+animation:meth_warning 1.2s ease-in-out infinite alternate;
+background-color:rgba(130,0,0,0.55);
+border-color:#ff3030;
+color:#ff5050;
+}
+
+.meth_possession.ready {
+background-color:rgba(0,90,0,0.35);
+border-color:currentColor;
+}
+
+@keyframes meth_warning {
+from {box-shadow:0 0 4px #ff2020;}
+to {box-shadow:0 0 18px #ff2020, inset 0 0 14px rgba(255,0,0,0.35);}
+}
+
+.meth_spawn_area {
+display:flex;
+flex-direction:column;
+min-height:0;
+min-width:0;
+}
+
+.meth_spawn_title {
+font-size:11px;
+font-weight:bold;
+margin-bottom:4px;
+}
+
+.meth_spawn_list {
+display:grid;
+font-size:11px;
+gap:2px 10px;
+grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+min-height:0;
+overflow-y:auto;
+}
+
+.meth_spawn_list label,
+.meth_other {
+align-items:center;
+display:flex;
+gap:4px;
+}
+
+.meth_other {
+font-size:11px;
+margin-top:5px;
+}
+
+.meth_other input {
+background-color:rgba(0,0,0,0.25);
+border:1px solid currentColor;
+color:inherit;
+flex:1;
+min-width:0;
 }
 
 .note_general {
@@ -489,6 +606,7 @@ min-width:0;
 
 .note_sections {
 grid-template-columns:1fr;
+grid-template-rows:none;
 top:105px;
 }
 
@@ -500,6 +618,21 @@ grid-column:auto;
 
 .note_section {
 min-height:120px;
+}
+
+.note_meth {
+min-height:330px;
+}
+
+.meth_tracker {
+grid-template-columns:1fr;
+}
+}
+
+@media (prefers-reduced-motion:reduce) {
+.meth_possession.missing {
+animation:none;
+box-shadow:0 0 10px #ff2020;
 }
 }
 

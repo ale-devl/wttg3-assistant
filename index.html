@@ -55,7 +55,7 @@
 		</style>
 	</head>
 	<body onload="setup()">
-		<p id="version" class="version"><i>WTTG3 Assistant Version 1.3.0</i></p>
+		<p id="version" class="version"><i>WTTG3 Assistant Version 1.4.0</i></p>
 		<div class="top_actions">
 			<button type="button" onclick="reset_playthrough()">Start New Playthrough</button>
 			<button type="button" class="info_open_button" onclick="info_toggle(true)"><i class="icon-info-circle"></i> Info</button>
@@ -64,7 +64,7 @@
 		<div class="main_sections">
 		<!-- Wiki Data Block -->
 		<div class="block_main wiki_block">
-			<p class="version"><i>Wiki Block Version 1.3.0</i></p>
+			<p class="version"><i>Wiki Block Version 1.4.0</i></p>
 			<div class="wiki_headerwrapper">
 				<div>
 					<button onclick="wiki_update(-1)" style="width:38px;height:38px;"><i class="icon-arrow-left icon-2x"></i></button>
@@ -76,34 +76,57 @@
 					<button onclick="wiki_editor()" class="monospaced" style="width:38px;height:21px;">Edit</button>
 				</div>
 			</div>
-			<table style="margin: 5px 0 0 0;bottom:515px;left:50%;position:absolute;transform:translate(-50%,0);">
+			<table class="wiki_columns" style="margin: 5px 0 0 0;bottom:515px;left:50%;position:absolute;transform:translate(-50%,0);">
 				<caption id="wiki_keys"><b>Keys remaining: 2</b></caption>
-				<tr><th>Site Name</th><th>Availability</th><th>Markers</th></tr>
+				<tr><th>Site Name</th><th>Availability</th><th>Markers</th><th>Add</th></tr>
 			</table>
 			<div class="wiki_data" data-simplebar>
-				<table id="wiki_list">
+				<table id="wiki_list" class="wiki_columns">
 					<tr></tr>
-					<tr><td><h2>Welcome to the Wiki block</h2></p>Here you can view and use tools regarding the websites contained within the wikis you find throughout the game. This includes informaion such as website times and what parts of a site the player may be required to click to find a hidden key. This section also includes note taking buttons which can be used to keep track of your progress.</p></td></tr>
-					<tr><td>[ <i class="icon-mouse-pointer"></i> ] View Click Points</td></tr>
-					<tr><td>[ <i class="icon-search"></i> ] Searched Manually</td></tr>
-					<tr><td>[ <i class="icon-search-plus"></i> ] Searched With Key Cue</td></tr>
-					<tr><td>[ <i class="icon-key"></i> ] Key Found Here</td></tr>
-					<tr><td>[ <i class="icon-chain"></i> ] Fetch URL Found Here</td></tr>
-					<tr><td><p>To get started you can import your websites by copying the website list from a Deep Wiki inside the game into the box above. (If this does not work, you can also manually import using the edit button above.)</p></td></tr>
+					<tr><td colspan="4"><h2>Welcome to the Wiki block</h2><p>Here you can view and use tools regarding the websites contained within the wikis you find throughout the game. This includes information such as website times and what parts of a site the player may be required to click to find a hidden key. This section also includes note-taking buttons which can be used to keep track of your progress.</p></td></tr>
+					<tr><td colspan="4">[ <i class="icon-mouse-pointer"></i> ] View Click Points</td></tr>
+					<tr><td colspan="4">[ <i class="icon-search"></i> ] Searched Manually</td></tr>
+					<tr><td colspan="4">[ <i class="icon-search-plus"></i> ] Searched With Key Cue</td></tr>
+					<tr><td colspan="4">[ <i class="icon-key"></i> ] Key Found Here</td></tr>
+					<tr><td colspan="4">[ <i class="icon-chain"></i> ] Fetch URL Found Here</td></tr>
+					<tr><td colspan="4">[ +<i class="icon-chain"></i> / +<i class="icon-key"></i> ] Add site or subpage to Files / Encrypted Keys</td></tr>
+					<tr><td colspan="4"><p>To get started you can import your websites by copying the website list from a Deep Wiki inside the game into the box above. (If this does not work, you can also manually import using the edit button above.)</p></td></tr>
 				</table>
 			</div>
 		</div>
 
 		<!-- Notepad Block -->
 		<div class="block_main notepad_block">
-			<p class="version"><i>Notepad Block Version 1.3.0</i></p>
+			<p class="version"><i>Notepad Block Version 1.4.0</i></p>
 			<h1 style="margin: 10px 0 0 0">Notes</h1>
 			<p style="margin: 0 0 0 0;"><i>Paste game data directly into each section; decrypted keys compile automatically.</i></p>
 			<div class="note_sections">
-				<label class="note_section">
+				<section class="note_section note_meth">
 					<span>Meth</span>
-					<textarea oninput="note_input()" data-note-section="meth" aria-label="Meth notes"></textarea>
-				</label>
+					<div class="meth_tracker">
+						<label id="meth_possession" class="meth_possession missing">
+							<input id="meth_on_hand" type="checkbox" onchange="meth_input()">
+							<strong id="meth_status" aria-live="polite">NO METH ON HAND!</strong>
+						</label>
+						<div class="meth_spawn_area">
+							<span class="meth_spawn_title">Known Krystal King spawns (v1.0.6) — check where meth remains</span>
+							<div class="meth_spawn_list">
+								<label><input type="checkbox" data-meth-location="rear_dumpster" data-meth-label="Behind motel: dumpster (electrical side)" onchange="meth_input()"> Behind motel: dumpster (electrical side)</label>
+								<label><input type="checkbox" data-meth-location="rear_toilet" data-meth-label="Behind motel: toilet" onchange="meth_input()"> Behind motel: toilet</label>
+								<label><input type="checkbox" data-meth-location="truck" data-meth-label="Outside: truck behind Room 1" onchange="meth_input()"> Outside: truck behind Room 1</label>
+								<label><input type="checkbox" data-meth-location="blue_car" data-meth-label="Outside: blue car front-left tyre" onchange="meth_input()"> Outside: blue car front-left tyre</label>
+								<label><input type="checkbox" data-meth-location="room_1_sink" data-meth-label="Room 1: bathroom sink" onchange="meth_input()"> Room 1: bathroom sink</label>
+								<label><input type="checkbox" data-meth-location="room_3_clock" data-meth-label="Room 3: alarm clock" onchange="meth_input()"> Room 3: alarm clock</label>
+								<label><input type="checkbox" data-meth-location="room_7_phone" data-meth-label="Room 7: phone" onchange="meth_input()"> Room 7: phone</label>
+								<label><input type="checkbox" data-meth-location="room_7_sink" data-meth-label="Room 7: bathroom sink" onchange="meth_input()"> Room 7: bathroom sink</label>
+								<label><input type="checkbox" data-meth-location="room_9_toilet" data-meth-label="Room 9: bathroom toilet" onchange="meth_input()"> Room 9: bathroom toilet</label>
+								<label><input type="checkbox" data-meth-location="room_9_shelf" data-meth-label="Room 9: shelf above toilet" onchange="meth_input()"> Room 9: shelf above toilet</label>
+								<label><input type="checkbox" data-meth-location="room_11_phone" data-meth-label="Room 11: phone" onchange="meth_input()"> Room 11: phone</label>
+							</div>
+							<label class="meth_other"><span>Other:</span><input id="meth_other" type="text" aria-label="Other meth location" oninput="meth_input()"></label>
+						</div>
+					</div>
+				</section>
 				<label class="note_section">
 					<span>Files</span>
 					<textarea oninput="note_input()" data-note-section="files" aria-label="File notes"></textarea>

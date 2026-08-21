@@ -90,7 +90,8 @@ var data = {
 		"ding":new Audio('Assets/general_positivebeep.mp3')},
 	"note":{
 		"keys":full_array(8,"????"),
-		"content":NOTES_TEMPLATE},
+		"content":NOTES_TEMPLATE,
+		"meth":{"onHand":false,"locations":[],"custom":""}},
 	"info":{
 		"current":0},
 	"wiki":{
@@ -162,7 +163,7 @@ function wiki_update(m) {//Updates the currently displayed data, also handles cu
 	}
 
 	function wiki_appendsite(t,n) {//Take a website name and display the associated data
-		var a,b,c,d,e,f,g,h,i, forceHackData;
+		var a,b,c,d,e,f,g,h,i,j,noteName,safeNoteName, forceHackData;
 		e = wikidata[n];
 		i = data.wiki.sites[data.wiki.current][n];
 		if (e == undefined) {
@@ -170,9 +171,11 @@ function wiki_update(m) {//Updates the currently displayed data, also handles cu
 			b = a.insertCell(0);
 			c = a.insertCell(1);
 			d = a.insertCell(2);
+			j = a.insertCell(3);
 			b.innerHTML = n;
 			c.innerHTML = `<i class="secondary">Dead Site</i>`;
 			d.innerHTML = `<div class="wiki_notewrapper"><button class="disabled"><i class="icon-mouse-pointer"></i></button> <button class="disabled"><i class="icon-search"></i></button><button class="disabled"><i class="icon-search-plus"></i></button><button class="disabled"><i class="icon-key"></i></button><button class="disabled"><i class="icon-chain"></i></button></div>`;
+			j.innerHTML = `<div class="wiki_addwrapper"><button class="disabled" aria-label="File notes unavailable"><i class="icon-chain"></i></button><button class="disabled" aria-label="Key notes unavailable"><i class="icon-key"></i></button></div>`;
 			return;
 		}
 		f = e.id;
@@ -185,6 +188,7 @@ function wiki_update(m) {//Updates the currently displayed data, also handles cu
 			b = a.insertCell(0);
 			c = a.insertCell(1);
 			d = a.insertCell(2);
+			j = a.insertCell(3);
 			b.innerHTML = (h != 0) ? (((h + 1 == g) ? '⠀└─ ':'⠀├─ ') + e.sub[h - 1]):n;
 			c.innerHTML = (h != 0) ? ('<i class="child">⠀Subpage</i>'):((e.times == undefined) ? 'Always Available':e.times);
 			if(forceHackData != undefined){
@@ -194,6 +198,9 @@ function wiki_update(m) {//Updates the currently displayed data, also handles cu
 				}
 			}
 			d.innerHTML = `<div class="wiki_notewrapper"><button onclick="wiki_previewupdate(${f + h})"><i class="icon-mouse-pointer"></i></button> <button class="${(i[h][0]) ? "":"secondary"}" onclick="wiki_notetoggle(this,'${n}',${h},0)"><i class="icon-search"></i></button><button class="${(i[h][1]) ? "":"secondary"}" onclick="wiki_notetoggle(this,'${n}',${h},1)"><i class="icon-search-plus"></i></button><button class="${(i[h][2]) ? "":"secondary"}" onclick="wiki_notetoggle(this,'${n}',${h},2)"><i class="icon-key"></i></button><button class="${(i[h][3]) ? "":"secondary"}" onclick="wiki_notetoggle(this,'${n}',${h},3)"><i class="icon-chain"></i></button></div>`;
+			noteName = n + ((h != 0) ? ":" + e.sub[h - 1]:"");
+			safeNoteName = noteName.replace(/\\/g,"\\\\").replace(/'/g,"\\'");
+			j.innerHTML = `<div class="wiki_addwrapper"><button title="Add file note: ${noteName}" aria-label="Add file note for ${noteName}" onclick="note_addsite('files','${safeNoteName}')">+<i class="icon-chain"></i></button><button title="Add key note: ${noteName}" aria-label="Add key note for ${noteName}" onclick="note_addsite('encrypted','${safeNoteName}')">+<i class="icon-key"></i></button></div>`;
 		}
 	}
 }
@@ -312,11 +319,41 @@ function note_input() {//Attempts to find and save keys within the note block's 
 	save_state();
 }
 
+function meth_input() {//Saves meth possession and known stash locations
+	data.note.meth.onHand = document.getElementById("meth_on_hand").checked;
+	data.note.meth.locations = Array.from(document.querySelectorAll("[data-meth-location]:checked")).map(function(input) {return input.dataset.methLocation;});
+	data.note.meth.custom = document.getElementById("meth_other").value;
+	meth_update();
+	note_input();
+}
+
+function meth_update() {//Makes missing meth impossible to overlook
+	var possession = document.getElementById("meth_possession");
+	var status = document.getElementById("meth_status");
+	document.querySelector(".note_meth").classList.toggle("meth_missing",!data.note.meth.onHand);
+	possession.classList.toggle("missing",!data.note.meth.onHand);
+	possession.classList.toggle("ready",data.note.meth.onHand);
+	status.innerText = data.note.meth.onHand ? "METH ON HAND" : "NO METH ON HAND!";
+}
+
+function note_addsite(section,site) {//Adds a site or subpage name for immediate enrichment
+	click();
+	var editor = document.querySelector(`[data-note-section="${section}"]`);
+	editor.value += ((editor.value.length > 0 && !editor.value.endsWith("\n")) ? "\n":"") + site;
+	editor.focus();
+	editor.setSelectionRange(editor.value.length,editor.value.length);
+	note_input();
+}
+
 function note_serialize() {//Combines the section editors into the original plain-text save format
 	var value = function(section) {
 		return document.querySelector(`[data-note-section="${section}"]`).value;
 	};
-	return `Meth:\n${value("meth")}\n\nFiles\n${value("files")}\n\nWikis\n${value("wikis")}\n\nKeys\nEncrypted\n${value("encrypted")}\n\nDecrypted\n${value("decrypted")}\n\nGeneral Notes\n${value("general")}`.replace(/\s+$/g,"");
+	var meth = [];
+	if (data.note.meth.onHand) {meth.push("On hand");}
+	document.querySelectorAll("[data-meth-location]:checked").forEach(function(input) {meth.push(input.dataset.methLabel);});
+	if (data.note.meth.custom.trim() != "") {meth.push(data.note.meth.custom.trim());}
+	return `Meth:\n${meth.join("\n")}\n\nFiles\n${value("files")}\n\nWikis\n${value("wikis")}\n\nKeys\nEncrypted\n${value("encrypted")}\n\nDecrypted\n${value("decrypted")}\n\nGeneral Notes\n${value("general")}`.replace(/\s+$/g,"");
 }
 
 function note_populate(content) {//Loads saved plain-text notes into their matching section editors
@@ -333,7 +370,23 @@ function note_populate(content) {//Loads saved plain-text notes into their match
 		if (heading == "General Notes") {current = "general";return;}
 		sections[current].push(line);
 	});
-	Object.keys(sections).forEach(function(section) {
+	var hasMethState = data.note.meth.onHand || data.note.meth.locations.length > 0 || data.note.meth.custom != "";
+	if (!hasMethState && sections.meth.length > 0) {
+		var knownLocations = {};
+		document.querySelectorAll("[data-meth-location]").forEach(function(input) {knownLocations[input.dataset.methLabel] = input.dataset.methLocation;});
+		var customMeth = [];
+		sections.meth.forEach(function(line) {
+			if (line.toLowerCase() == "on hand") {data.note.meth.onHand = true;return;}
+			if (knownLocations[line] != undefined) {data.note.meth.locations.push(knownLocations[line]);return;}
+			if (line.trim() != "") {customMeth.push(line);}
+		});
+		data.note.meth.custom = customMeth.join(" / ");
+	}
+	document.getElementById("meth_on_hand").checked = data.note.meth.onHand;
+	document.querySelectorAll("[data-meth-location]").forEach(function(input) {input.checked = data.note.meth.locations.includes(input.dataset.methLocation);});
+	document.getElementById("meth_other").value = data.note.meth.custom;
+	meth_update();
+	["files","wikis","encrypted","decrypted","general"].forEach(function(section) {
 		while (sections[section][0] === "") {sections[section].shift();}
 		while (sections[section][sections[section].length - 1] === "") {sections[section].pop();}
 		document.querySelector(`[data-note-section="${section}"]`).value = sections[section].join("\n");
@@ -438,7 +491,8 @@ function save_state() {//Automatically saves all playthrough data to localStorag
 			"total":data.wiki.total},
 		"note":{
 			"keys":data.note.keys,
-			"content":data.note.content}
+			"content":data.note.content,
+			"meth":data.note.meth}
 	};
 	localStorage.setItem(SAVE_KEY,JSON.stringify(snapshot));
 }
@@ -453,13 +507,17 @@ function load_state() {//restores wiki, note, wifi and tenant data from localSto
 			Array.isArray(s.wiki.keys) && s.wiki.keys.length == 4 &&
 			Array.isArray(s.wiki.total) && s.wiki.total.length == 4;
 		var validNote = s.note && Array.isArray(s.note.keys) && s.note.keys.length == 8 && typeof s.note.content == "string";
-		if (s.version !== 1 || !validWiki || !validNote) {return false;}
+		var validMeth = s.note && (s.note.meth == undefined || (typeof s.note.meth.onHand == "boolean" && Array.isArray(s.note.meth.locations) && s.note.meth.locations.every(function(location) {return typeof location == "string";}) && typeof s.note.meth.custom == "string"));
+		if (s.version !== 1 || !validWiki || !validNote || !validMeth) {return false;}
 		data.wiki.current = s.wiki.current;
 		data.wiki.sites = s.wiki.sites;
 		data.wiki.keys = s.wiki.keys;
 		data.wiki.total = s.wiki.total;
 		data.note.keys = s.note.keys;
 		data.note.content = s.note.content || NOTES_TEMPLATE;
+		if (s.note.meth != undefined) {
+			data.note.meth = {"onHand":s.note.meth.onHand,"locations":s.note.meth.locations,"custom":s.note.meth.custom};
+		}
 		return true;
 	} catch(e) {
 		console.error("Failed to load saved data",e);
@@ -477,6 +535,7 @@ function reset_playthrough() {//Clears playthrough data while preserving prefere
 	data.wiki.total = [null,2,3,3];
 	data.note.keys = full_array(8,"????");
 	data.note.content = NOTES_TEMPLATE;
+	data.note.meth = {"onHand":false,"locations":[],"custom":""};
 	refresh_ui();
 }
 
