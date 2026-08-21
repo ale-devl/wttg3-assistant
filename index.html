@@ -46,16 +46,16 @@
 		<link rel="manifest" href="manifest.json">
 		<link rel="stylesheet" href="Assets/simplebar-5.3.6/simplebar.css">
 		<link rel="stylesheet" href="Assets/icomoon/style.css">
-		<link rel="stylesheet" href="style.css?v=1.4.1">
+		<link rel="stylesheet" href="style.css?v=1.4.2">
 		<link rel="apple-touch-icon" href="Assets/icon-192.png">
 		<link rel="icon" href="Assets/favicon.ico" type="image/x-icon">
-		<script src="script.js?v=1.4.1"></script>
+		<script src="script.js?v=1.4.2"></script>
 		<script src="Assets/simplebar-5.3.6/simplebar.min.js"></script>
 		<style id="dom_color">body {color:hsl(120,100%,50%)} .simplebar-scrollbar::before {background-color:hsl(120,100%,50%)} .child {color:hsl(120,100%,30%)} .secondary {color:hsl(0,100%,50%)} .disabled {color:hsl(0,100%,20%)}
 		</style>
 	</head>
 	<body onload="setup()">
-		<p id="version" class="version"><i>WTTG3 Assistant Version 1.4.1</i></p>
+		<p id="version" class="version"><i>WTTG3 Assistant Version 1.4.2</i></p>
 		<div class="top_actions">
 			<button type="button" onclick="reset_playthrough()">Start New Playthrough</button>
 			<button type="button" class="info_open_button" onclick="info_toggle(true)"><i class="icon-info-circle"></i> Info</button>
@@ -64,7 +64,7 @@
 		<div class="main_sections">
 		<!-- Wiki Data Block -->
 		<div class="block_main wiki_block">
-			<p class="version"><i>Wiki Block Version 1.4.1</i></p>
+			<p class="version"><i>Wiki Block Version 1.4.2</i></p>
 			<div class="wiki_headerwrapper">
 				<div>
 					<button onclick="wiki_update(-1)" style="width:38px;height:38px;"><i class="icon-arrow-left icon-2x"></i></button>
@@ -76,27 +76,27 @@
 					<button onclick="wiki_editor()" class="monospaced" style="width:38px;height:21px;">Edit</button>
 				</div>
 			</div>
-			<table class="wiki_columns" style="margin: 5px 0 0 0;bottom:515px;left:50%;position:absolute;transform:translate(-50%,0);">
+			<table style="margin: 5px 0 0 0;bottom:515px;left:50%;position:absolute;transform:translate(-50%,0);">
 				<caption id="wiki_keys"><b>Keys remaining: 2</b></caption>
-				<tr><th>Site Name</th><th>Availability</th><th>Markers</th><th>Add</th></tr>
+				<tr><th>Site Name</th><th>Availability</th><th>Markers</th></tr>
 			</table>
 			<div class="wiki_data" data-simplebar>
-				<table id="wiki_list" class="wiki_columns">
+				<table id="wiki_list">
 					<tr></tr>
-					<tr><td colspan="4"><h2>Welcome to the Wiki block</h2><p>Here you can view and use tools regarding the websites contained within the wikis you find throughout the game. This includes information such as website times and what parts of a site the player may be required to click to find a hidden key. This section also includes note-taking buttons which can be used to keep track of your progress.</p></td></tr>
-					<tr><td colspan="4">[ <i class="icon-mouse-pointer"></i> ] View Click Points</td></tr>
-					<tr><td colspan="4">[ <i class="icon-search"></i> ] Searched Manually</td></tr>
-					<tr><td colspan="4">[ <i class="icon-search-plus"></i> ] Searched With Key Cue</td></tr>
-					<tr><td colspan="4">[ <i class="icon-key"></i> ] Key Found Here</td></tr>
-					<tr><td colspan="4">[ +<i class="icon-chain"></i> / +<i class="icon-key"></i> ] Add site or subpage to Files / Encrypted Keys</td></tr>
-					<tr><td colspan="4"><p>To get started you can import your websites by copying the website list from a Deep Wiki inside the game into the box above. (If this does not work, you can also manually import using the edit button above.)</p></td></tr>
+					<tr><td colspan="3"><h2>Welcome to the Wiki block</h2><p>Here you can view and use tools regarding the websites contained within the wikis you find throughout the game. This includes information such as website times and what parts of a site the player may be required to click to find a hidden key. This section also includes note-taking buttons which can be used to keep track of your progress.</p></td></tr>
+					<tr><td colspan="3">[ <i class="icon-mouse-pointer"></i> ] View Click Points</td></tr>
+					<tr><td colspan="3">[ <i class="icon-search"></i> ] Searched Manually</td></tr>
+					<tr><td colspan="3">[ <i class="icon-search-plus"></i> ] Searched With Key Cue</td></tr>
+					<tr><td colspan="3">[ <i class="icon-key"></i> ] Key Found Here + add to Encrypted Keys</td></tr>
+					<tr><td colspan="3">[ <i class="icon-chain"></i> ] Fetch URL Found Here + add to Files</td></tr>
+					<tr><td colspan="3"><p>To get started you can import your websites by copying the website list from a Deep Wiki inside the game into the box above. (If this does not work, you can also manually import using the edit button above.)</p></td></tr>
 				</table>
 			</div>
 		</div>
 
 		<!-- Notepad Block -->
 		<div class="block_main notepad_block">
-			<p class="version"><i>Notepad Block Version 1.4.1</i></p>
+			<p class="version"><i>Notepad Block Version 1.4.2</i></p>
 			<h1 style="margin: 10px 0 0 0">Notes</h1>
 			<p style="margin: 0 0 0 0;"><i>Paste game data directly into each section; decrypted keys compile automatically.</i></p>
 			<div class="note_sections">

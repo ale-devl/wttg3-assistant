@@ -163,7 +163,7 @@ function wiki_update(m) {//Updates the currently displayed data, also handles cu
 	}
 
 	function wiki_appendsite(t,n) {//Take a website name and display the associated data
-		var a,b,c,d,e,f,g,h,i,j,noteName,safeNoteName,fileAdded,keyAdded,forceHackData;
+		var a,b,c,d,e,f,g,h,i,forceHackData;
 		e = wikidata[n];
 		i = data.wiki.sites[data.wiki.current][n];
 		if (e == undefined) {
@@ -171,11 +171,9 @@ function wiki_update(m) {//Updates the currently displayed data, also handles cu
 			b = a.insertCell(0);
 			c = a.insertCell(1);
 			d = a.insertCell(2);
-			j = a.insertCell(3);
 			b.innerHTML = n;
 			c.innerHTML = `<i class="secondary">Dead Site</i>`;
-			d.innerHTML = `<div class="wiki_notewrapper"><button class="disabled"><i class="icon-mouse-pointer"></i></button> <button class="disabled"><i class="icon-search"></i></button><button class="disabled"><i class="icon-search-plus"></i></button><button class="disabled"><i class="icon-key"></i></button></div>`;
-			j.innerHTML = `<div class="wiki_addwrapper"><button class="disabled" aria-label="File notes unavailable"><i class="icon-chain"></i></button><button class="disabled" aria-label="Key notes unavailable"><i class="icon-key"></i></button></div>`;
+			d.innerHTML = `<div class="wiki_notewrapper"><button class="disabled"><i class="icon-mouse-pointer"></i></button> <button class="disabled"><i class="icon-search"></i></button><button class="disabled"><i class="icon-search-plus"></i></button><button class="disabled"><i class="icon-key"></i></button><button class="disabled"><i class="icon-chain"></i></button></div>`;
 			return;
 		}
 		f = e.id;
@@ -188,7 +186,6 @@ function wiki_update(m) {//Updates the currently displayed data, also handles cu
 			b = a.insertCell(0);
 			c = a.insertCell(1);
 			d = a.insertCell(2);
-			j = a.insertCell(3);
 			b.innerHTML = (h != 0) ? (((h + 1 == g) ? '⠀└─ ':'⠀├─ ') + e.sub[h - 1]):n;
 			c.innerHTML = (h != 0) ? ('<i class="child">⠀Subpage</i>'):((e.times == undefined) ? 'Always Available':e.times);
 			if(forceHackData != undefined){
@@ -197,12 +194,7 @@ function wiki_update(m) {//Updates the currently displayed data, also handles cu
 					b.innerHTML += ` (${forceHackData[1]} FH)`
 				}
 			}
-			d.innerHTML = `<div class="wiki_notewrapper"><button onclick="wiki_previewupdate(${f + h})"><i class="icon-mouse-pointer"></i></button> <button class="${(i[h][0]) ? "":"secondary"}" onclick="wiki_notetoggle(this,'${n}',${h},0)"><i class="icon-search"></i></button><button class="${(i[h][1]) ? "":"secondary"}" onclick="wiki_notetoggle(this,'${n}',${h},1)"><i class="icon-search-plus"></i></button><button class="${(i[h][2]) ? "":"secondary"}" onclick="wiki_notetoggle(this,'${n}',${h},2)"><i class="icon-key"></i></button></div>`;
-			noteName = n + ((h != 0) ? ":" + e.sub[h - 1]:"");
-			safeNoteName = noteName.replace(/\\/g,"\\\\").replace(/'/g,"\\'");
-			fileAdded = note_hassite("files",noteName);
-			keyAdded = note_hassite("encrypted",noteName);
-			j.innerHTML = `<div class="wiki_addwrapper"><button ${(fileAdded) ? 'class="note_added" disabled':`title="Add file note: ${noteName}"`} aria-label="${(fileAdded) ? `${noteName} already in Files`:`Add file note for ${noteName}`}" onclick="note_addsite('files','${safeNoteName}',this)">${(fileAdded) ? "✓":"+"}<i class="icon-chain"></i></button><button ${(keyAdded) ? 'class="note_added" disabled':`title="Add key note: ${noteName}"`} aria-label="${(keyAdded) ? `${noteName} already in Encrypted Keys`:`Add key note for ${noteName}`}" onclick="note_addsite('encrypted','${safeNoteName}',this)">${(keyAdded) ? "✓":"+"}<i class="icon-key"></i></button></div>`;
+			d.innerHTML = `<div class="wiki_notewrapper"><button onclick="wiki_previewupdate(${f + h})"><i class="icon-mouse-pointer"></i></button> <button class="${(i[h][0]) ? "":"secondary"}" onclick="wiki_notetoggle(this,'${n}',${h},0)"><i class="icon-search"></i></button><button class="${(i[h][1]) ? "":"secondary"}" onclick="wiki_notetoggle(this,'${n}',${h},1)"><i class="icon-search-plus"></i></button><button class="${(i[h][2]) ? "":"secondary"}" onclick="wiki_notetoggle(this,'${n}',${h},2)"><i class="icon-key"></i></button><button class="${(i[h][3]) ? "":"secondary"}" onclick="wiki_notetoggle(this,'${n}',${h},3)"><i class="icon-chain"></i></button></div>`;
 		}
 	}
 }
@@ -269,11 +261,18 @@ function wiki_erase() {//Removes all content from the wiki table
 
 function wiki_notetoggle(e,n,i,b) {//Toggle color of note taking buttons
 	click();
-	if (b == 2) {data.wiki.keys[data.wiki.current] += (e.classList.contains("secondary")) ? 1:-1;wiki_updatekeys();}
-	data.wiki.sites[data.wiki.current][n][i][b] ^= 1;
+	var activating = e.classList.contains("secondary");
+	if (b == 2) {data.wiki.keys[data.wiki.current] += activating ? 1:-1;wiki_updatekeys();}
+	data.wiki.sites[data.wiki.current][n][i][b] = Number(activating);
 	//console.log(data.wiki.sites[data.wiki.current][n][i][b])
 	e.classList.toggle("secondary");
+	if (activating && b == 2) {note_addsite("encrypted",wiki_notename(n,i));}
+	if (activating && b == 3) {note_addsite("files",wiki_notename(n,i));}
 	save_state();
+}
+
+function wiki_notename(site,index) {//Builds same page label shown in wiki list
+	return site + ((index == 0) ? "":":" + wikidata[site].sub[index - 1]);
 }
 
 function wiki_updatekeys() {//Updates the remaining keys count
@@ -350,27 +349,11 @@ function note_hassite(section,site) {//Checks for a blank or enriched entry with
 	});
 }
 
-function note_addsite(section,site,button) {//Adds one unique site or subpage name for immediate enrichment
+function note_addsite(section,site) {//Adds one unique site or subpage name for immediate enrichment
 	var editor = document.querySelector(`[data-note-section="${section}"]`);
-	if (note_hassite(section,site)) {
-		note_addedbutton(button,section,site);
-		return;
-	}
-	click();
+	if (note_hassite(section,site)) {return;}
 	editor.value += ((editor.value.length > 0 && !editor.value.endsWith("\n")) ? "\n":"") + site;
-	note_addedbutton(button,section,site);
-	editor.focus();
-	editor.setSelectionRange(editor.value.length,editor.value.length);
 	note_input();
-}
-
-function note_addedbutton(button,section,site) {//Shows that page already has a note entry
-	if (button == null) {return;}
-	button.disabled = true;
-	button.classList.add("note_added");
-	button.removeAttribute("title");
-	button.setAttribute("aria-label",site + " already in " + ((section == "files") ? "Files":"Encrypted Keys"));
-	button.innerHTML = button.innerHTML.replace(/^\+/,"✓");
 }
 
 function note_serialize() {//Combines the section editors into the original plain-text save format
@@ -568,10 +551,10 @@ function reset_playthrough() {//Clears playthrough data while preserving prefere
 }
 
 function refresh_ui() {//repaints all DOM elements to reflect the current `data` state
-	note_populate(data.note.content);
-	note_input();
-
 	document.getElementById("wiki_title").innerHTML = data.wiki.names[data.wiki.current - 1];
 	wiki_updatekeys();
 	wiki_update();
+
+	note_populate(data.note.content);
+	note_input();
 }

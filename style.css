@@ -288,19 +288,9 @@ align-items:center;
 justify-content:space-between;
 }
 
-.wiki_data td:nth-child(3),
-.wiki_data td:nth-child(4) {
+.wiki_data td:nth-child(3) {
 text-align:right;
 }
-
-.wiki_columns th:nth-child(1),
-.wiki_columns td:nth-child(1) {width:30%;}
-.wiki_columns th:nth-child(2),
-.wiki_columns td:nth-child(2) {width:21%;}
-.wiki_columns th:nth-child(3),
-.wiki_columns td:nth-child(3) {width:27%;}
-.wiki_columns th:nth-child(4),
-.wiki_columns td:nth-child(4) {width:22%;}
 
 .wiki_data {
 border-bottom:1px solid;
@@ -319,29 +309,12 @@ width:530px;
 .wiki_data td {
 padding:0;
 text-align:left;
+width:33%;
 }
 
 .wiki_notewrapper > button {
 height:25px;
 width:30px;
-}
-
-.wiki_addwrapper {
-display:flex;
-gap:3px;
-justify-content:flex-end;
-}
-
-.wiki_addwrapper > button {
-font-size:11px;
-height:25px;
-width:34px;
-}
-
-.wiki_addwrapper > button.note_added {
-border-style:solid;
-cursor:default;
-opacity:0.45;
 }
 
 .wiki_editorwrapper > button {
