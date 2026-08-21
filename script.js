@@ -71,6 +71,35 @@ var wikidata = {
 	"You There?":            {id:231, times:":30 - :44", forceHack: [0, "87%"]}
 };
 //==========================================================================Variable Data
+const NOTES_TEMPLATE = `NEXT
+- [ ] _______________________________________________
+
+KEYS
+1 - .... | hash: __________ | site: __________ | decryptor/cost: __________
+2 - .... | hash: __________ | site: __________ | decryptor/cost: __________
+3 - .... | hash: __________ | site: __________ | decryptor/cost: __________
+4 - .... | hash: __________ | site: __________ | decryptor/cost: __________
+5 - .... | hash: __________ | site: __________ | decryptor/cost: __________
+6 - .... | hash: __________ | site: __________ | decryptor/cost: __________
+7 - .... | hash: __________ | site: __________ | decryptor/cost: __________
+8 - .... | hash: __________ | site: __________ | decryptor/cost: __________
+
+A.C.R.S. / SALES
+- [ ] user: __________ | wants: __________ | reward/cost: _____ | pinged: no
+- [ ] user: __________ | wants: __________ | reward/cost: _____ | pinged: no
+
+FETCH / LOOT
+- [ ] site/page: __________ | link/file: __________
+      buyer: __________ | converted/delivered: __________
+
+DROPS / STASH
+- Meth: _____________________________________________
+- Packages: _________________________________________
+- Other: ____________________________________________
+
+SCRATCH
+-`;
+
 var data = {
 	"general":{
 		"click":new Audio('Assets/general_mouseclick.mp3'),
@@ -78,7 +107,7 @@ var data = {
 		"ding":new Audio('Assets/general_positivebeep.mp3')},
 	"note":{
 		"keys":full_array(8,"????"),
-		"content":""},
+		"content":NOTES_TEMPLATE},
 	"info":{
 		"current":0},
 	"wiki":{
@@ -286,8 +315,12 @@ function wiki_previewupdate(i) {//Updates and displays the key clickpoints popup
 function note_input() {//Attempts to find and save keys within the note block's data
 	var content = document.getElementById("note_input").value;
 	data.note.content = content;
-	var lkeys = content.match(/[1-8] - \w{4}(?= |\r?\n|$)/g);
-	if (lkeys !== null) {lkeys.forEach(function (a) {data.note.keys[a.slice(0,1) - 1] = a.slice(4,16);});}
+	data.note.keys = full_array(8,"????");
+	var keyPattern = /([1-8]) - (\w{4})(?= |\r?\n|$)/g;
+	var keyMatch;
+	while ((keyMatch = keyPattern.exec(content)) !== null) {
+		data.note.keys[Number(keyMatch[1]) - 1] = keyMatch[2];
+	}
 	document.getElementById("note_keyoutput").innerHTML = `<b>Key Data</b><br>${data.note.keys.join("").substr(0,48)}<br>${data.note.keys.join("").substr(48,48)}`;
 	if (data.note.keys.indexOf("????") == -1) {document.getElementById("note_keyoutput").innerHTML = `<b>Master Key</b><br><span class="select-all">${data.note.keys.join("")}</span>`;}
 	if (data.popup.notes.active == 1) {
@@ -354,8 +387,9 @@ function setup() {//Prepares website lists and appearance
 		document.getElementById("setting_colorforcehack").value = localStorage.getItem('color2');
 		document.getElementById("dom_color").innerHTML = `:root {--primary-color:${localStorage.getItem('color0')};--secondary-color:${localStorage.getItem('color1')};--forcehack-color:${localStorage.getItem('color2')}}`;
 
-		//Restore the latest playthrough data
-		if (load_state()) {refresh_ui();}
+		//Restore the latest playthrough data, or initialize a fresh notes scaffold
+		load_state();
+		refresh_ui();
 
 		//Query the current github commit and add it to site version
 		var x = new XMLHttpRequest();
@@ -414,7 +448,7 @@ function load_state() {//restores wiki, note, wifi and tenant data from localSto
 		data.wiki.keys = s.wiki.keys;
 		data.wiki.total = s.wiki.total;
 		data.note.keys = s.note.keys;
-		data.note.content = s.note.content;
+		data.note.content = s.note.content || NOTES_TEMPLATE;
 		return true;
 	} catch(e) {
 		console.error("Failed to load saved data",e);
@@ -431,7 +465,7 @@ function reset_playthrough() {//Clears playthrough data while preserving prefere
 	data.wiki.keys = [null,0,0,0];
 	data.wiki.total = [null,2,3,3];
 	data.note.keys = full_array(8,"????");
-	data.note.content = "";
+	data.note.content = NOTES_TEMPLATE;
 	refresh_ui();
 }
 
